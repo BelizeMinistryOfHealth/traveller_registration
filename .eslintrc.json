@@ -1,4 +1,16 @@
 {
+  "plugins": ["@typescript-eslint", "react", "import", "prettier"],
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "sourceType": "module",
+    "ecmaVersion": 2015,
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
+  },
+  "extends": ["prettier"],
+  "ignorePatterns": ["node_modules/"],
   "rules": {
     "prettier/prettier": ["error"]
   }
