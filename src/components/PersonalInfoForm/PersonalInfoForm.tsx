@@ -11,6 +11,7 @@ import {
   Select,
 } from 'grommet';
 import { deepMerge } from 'grommet/utils';
+import ReactFlagsSelect from 'react-flags-select';
 
 const formTheme = deepMerge(grommet, {
   formField: {
@@ -26,6 +27,7 @@ interface FormData {
   lastName?: string;
   dob?: string;
   gender?: 'Female' | 'Male';
+  nationality?: string;
 }
 
 const PersonalInfoForm = () => {
@@ -79,6 +81,14 @@ const PersonalInfoForm = () => {
           />
           <FormField name={'dob'} label={'Date of Birth'} required>
             <DateInput name={'dob'} format={'yyyy-mm-dd'} />
+          </FormField>
+          <FormField name={'nationality'} label={'Nationality'} required>
+            <ReactFlagsSelect
+              selected={formData.nationality ?? ''}
+              onSelect={(countryCode: string) => {
+                setFormData({ ...formData, nationality: countryCode });
+              }}
+            />
           </FormField>
           <FormField name={'gender'} label={'Gender'} required>
             <RadioButtonGroup
