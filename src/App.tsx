@@ -1,22 +1,28 @@
 import './App.css';
+import { grommet, Grommet, Header, Main, Text } from 'grommet';
+import Routes from './Routes';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Grommet theme={grommet} full>
+      <Header background={'brand'} height={'small'}>
+        Welcome
+      </Header>
+      <BrowserRouter>
+        <Main
+          direction={'column'}
+          flex={false}
+          responsive={true}
+          // margin={'xxsmall'}
+          fill={'vertical'}
+          align={'center'}
+          background={{ opacity: 'weak', color: 'light-6' }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Routes />
+        </Main>
+      </BrowserRouter>
+    </Grommet>
   );
 }
 
