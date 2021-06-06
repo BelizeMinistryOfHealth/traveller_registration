@@ -2,8 +2,8 @@ import React from 'react';
 import { Box, Text } from 'grommet';
 import { useHistory } from 'react-router-dom';
 
-const Home = () => {
-  let history = useHistory();
+const Home = (): JSX.Element => {
+  const history = useHistory();
   return (
     <>
       <Text>Hello</Text>

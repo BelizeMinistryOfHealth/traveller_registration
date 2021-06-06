@@ -7,8 +7,8 @@ import {
   FormField,
   Grommet,
   grommet,
+  MaskedInput,
   RadioButtonGroup,
-  Select,
 } from 'grommet';
 import { deepMerge } from 'grommet/utils';
 import ReactFlagsSelect from 'react-flags-select';
@@ -28,14 +28,19 @@ interface FormData {
   dob?: string;
   gender?: 'Female' | 'Male';
   nationality?: string;
+  passportNumber?: string;
+  phoneNumbers?: string;
+  occupation?: string;
+  email?: string;
 }
 
-const PersonalInfoForm = () => {
+const PersonalInfoForm = (): JSX.Element => {
   const [formData, setFormData] = React.useState<FormData>({
     firstName: '',
     lastName: '',
     middleName: '',
     dob: '',
+    passportNumber: '',
   });
 
   const onChange = (nextValue: FormData) => {
@@ -49,7 +54,7 @@ const PersonalInfoForm = () => {
         responsive={true}
         round={'small'}
         width={'large'}
-        height={'large'}
+        flex={'grow'}
         gap={'medium'}
         pad={'xlarge'}
         background={{
@@ -59,15 +64,15 @@ const PersonalInfoForm = () => {
       >
         <Form
           value={formData}
-          onChange={(value: FormData, _) => onChange(value)}
-          onSubmit={(e) => console.log(e)}
+          onChange={(value: FormData) => onChange(value)}
+          onSubmit={(e) => console.log(e.value)}
         >
           <FormField
             placeholder={'First Name'}
             name={'firstName'}
             label={'First Name'}
             required
-          ></FormField>
+          />
           <FormField
             name={'middleName'}
             label={'Middle Name'}
@@ -95,6 +100,36 @@ const PersonalInfoForm = () => {
               name={'gender'}
               options={['Male', 'Female']}
               direction={'row'}
+            />
+          </FormField>
+          <FormField
+            name={'passportNumber'}
+            label={'Passport Number'}
+            placeholder={'Passport Number'}
+            required
+          />
+          <FormField
+            name={'phoneNumbers'}
+            label={'Phone Numbers'}
+            placeholder={'Phone Numbers'}
+            required
+          />
+          <FormField
+            name={'occupation'}
+            label={'Occupation'}
+            placeholder={'Occupation'}
+            required
+          />
+          <FormField label={'Email'} name={'email'} required>
+            <MaskedInput
+              name='email'
+              mask={[
+                { regexp: /^[\w\-_.]+$/, placeholder: 'your' },
+                { fixed: '@' },
+                { regexp: /^[\w]+$/, placeholder: 'email' },
+                { fixed: '.' },
+                { regexp: /^[\w]+$/, placeholder: 'com' },
+              ]}
             />
           </FormField>
           <Button type={'submit'} label={'Submit'} />
