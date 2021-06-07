@@ -8,28 +8,13 @@ import {
   Text,
 } from 'grommet';
 import ReactFlagsSelect from 'react-flags-select';
+import { RegistrationState } from '../../models/models';
 
-interface FormData {
-  firstName?: string;
-  middleName?: string;
-  lastName?: string;
-  dob?: string;
-  gender?: 'Female' | 'Male';
-  nationality?: string;
-  passportNumber?: string;
-  phoneNumbers?: string;
-  occupation?: string;
-  email?: string;
-}
-
-const PersonalInfoForm = (): JSX.Element => {
-  const [formData, setFormData] = React.useState<FormData>({
-    firstName: '',
-    lastName: '',
-    middleName: '',
-    dob: '',
-    passportNumber: '',
-  });
+const PersonalInfoForm = (props: {
+  state: RegistrationState;
+  setState: (st: RegistrationState) => void;
+}): JSX.Element => {
+  const { state, setState } = props;
 
   return (
     <>
@@ -59,9 +44,9 @@ const PersonalInfoForm = (): JSX.Element => {
       </FormField>
       <FormField name={'nationality'} label={'Nationality'} required>
         <ReactFlagsSelect
-          selected={formData.nationality ?? ''}
+          selected={state.nationality ?? ''}
           onSelect={(countryCode: string) => {
-            setFormData({ ...formData, nationality: countryCode });
+            setState({ ...state, nationality: countryCode });
           }}
         />
       </FormField>

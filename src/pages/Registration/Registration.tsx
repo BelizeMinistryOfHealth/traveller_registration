@@ -3,7 +3,8 @@ import PersonalInfoForm from '../../components/PersonalInfoForm/PersonalInfoForm
 import { Box, Form, Button, grommet, Grommet } from 'grommet';
 import TravelInfoForm from '../../components/TravelInfoForm/TravelInfoForm';
 import { deepMerge } from 'grommet/utils';
-import { PersonalInfo, TravelInfo } from '../../models/models';
+import { RegistrationState } from '../../models/models';
+import AddressForm from '../../components/AddressForm/AddressForm';
 
 const formTheme = deepMerge(grommet, {
   formField: {
@@ -13,25 +14,17 @@ const formTheme = deepMerge(grommet, {
   },
 });
 
-interface FormData {
-  personalInfo: PersonalInfo;
-  travelInfo: TravelInfo;
-}
-
 const Registration = (): JSX.Element => {
-  const [formData, setFormData] = React.useState<FormData>({
-    personalInfo: {
-      firstName: '',
-      lastName: '',
-      middleName: '',
-      dob: '',
-      passportNumber: '',
-    },
-    travelInfo: {},
+  const [formData, setFormData] = React.useState<RegistrationState>({
+    firstName: '',
+    lastName: '',
+    middleName: '',
+    dob: '',
+    passportNumber: '',
   });
 
-  const onChange = (nextValue: FormData) => {
-    console.log(nextValue);
+  const onChange = (nextValue: RegistrationState) => {
+    // console.log(nextValue);
     setFormData(nextValue);
   };
 
@@ -47,7 +40,7 @@ const Registration = (): JSX.Element => {
       >
         <Form
           value={formData}
-          onChange={(value: FormData) => onChange(value)}
+          onChange={(value: RegistrationState) => onChange(value)}
           onSubmit={(e) => console.log(e.value)}
         >
           <Box pad={'medium'} gap={'large'}>
@@ -62,7 +55,7 @@ const Registration = (): JSX.Element => {
                 opacity: true,
               }}
             >
-              <PersonalInfoForm />
+              <PersonalInfoForm state={formData} setState={setFormData} />
             </Box>
             <Box
               gridArea={'travelInfo'}
@@ -76,7 +69,21 @@ const Registration = (): JSX.Element => {
                 opacity: true,
               }}
             >
-              <TravelInfoForm travelInfo={formData.travelInfo} />
+              <TravelInfoForm state={formData} setState={setFormData} />
+            </Box>
+            <Box
+              gridArea={'travelInfo'}
+              responsive={true}
+              width={'large'}
+              gap={'medium'}
+              round={'medium'}
+              pad={'large'}
+              background={{
+                color: 'light-1',
+                opacity: true,
+              }}
+            >
+              <AddressForm state={formData} setState={setFormData} />
             </Box>
             <Box
               align={'center'}
