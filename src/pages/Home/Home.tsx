@@ -1,25 +1,33 @@
 import React from 'react';
-import { Box, Text } from 'grommet';
+import { Box, Grommet, Text } from 'grommet';
 import { useHistory } from 'react-router-dom';
 
 const Home = (): JSX.Element => {
   const history = useHistory();
   return (
-    <>
-      <Text>Hello</Text>
+    <Grommet background={{ color: 'brand' }} full>
       <Box
-        width={'large'}
-        height={'medium'}
-        round={'medium'}
+        fill
+        pad={'medium'}
+        gap={'large'}
         align={'center'}
-        justify={'center'}
-        background={'brand'}
         responsive={true}
-        onClick={() => history.push('/registration')}
+        background={{ color: 'light-6' }}
       >
-        <Text size={'xxlarge'}>Register</Text>
+        <Box
+          width={'large'}
+          height={'medium'}
+          round={'medium'}
+          align={'center'}
+          justify={'center'}
+          background={'brand'}
+          responsive={true}
+          onClick={() => history.push('/registration')}
+        >
+          <Text size={'xxlarge'}>Register</Text>
+        </Box>
       </Box>
-    </>
+    </Grommet>
   );
 };
 
