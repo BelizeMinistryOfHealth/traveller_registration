@@ -12,9 +12,6 @@ const TravelInfoForm = (props: {
       <Header>
         <Text size={'xlarge'}>Travel Information</Text>
       </Header>
-      <FormField name={'dateOfDeparture'} label={'Departure Date'} required>
-        <DateInput name={'dateOfDeparture'} format={'yyyy-mm-dd'} />
-      </FormField>
       <FormField
         name={'dateOfEmbarkation'}
         label={'Date of Embarkation'}
@@ -22,8 +19,15 @@ const TravelInfoForm = (props: {
       >
         <DateInput name={'dateOfEmbarkation'} format={'yyyy-mm-dd'} />
       </FormField>
-      <FormField name={'arrivalDate'} label={'Arrival Date'} required>
+      <FormField
+        name={'arrivalDate'}
+        label={'Date of Arrival in Belize'}
+        required
+      >
         <DateInput name={'arrivalDate'} format={'yyyy-mm-dd'} />
+      </FormField>
+      <FormField name={'dateOfDeparture'} label={'Departure Date from Belize'}>
+        <DateInput name={'dateOfDeparture'} format={'yyyy-mm-dd'} />
       </FormField>
       <FormField
         placeholder={'Vessel #'}
@@ -48,7 +52,7 @@ const TravelInfoForm = (props: {
         />
       </FormField>
       <FormField
-        placeholder={'Travel Origin'}
+        placeholder={'City/Port/Airport your trip originated from'}
         name={'travelOrigin'}
         label={'Travel Origin'}
         required

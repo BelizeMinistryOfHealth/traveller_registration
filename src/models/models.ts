@@ -32,16 +32,15 @@ export interface TravelInfo {
 }
 
 export interface Address {
-  district?:
-    | 'Belize'
-    | 'Cayo'
-    | 'Corozal'
-    | 'Stann Creek'
-    | 'Toledo'
-    | 'Orange Walk';
-  municipality?: string;
+  community?: Community;
   address?: string;
   accommodationName?: string;
+}
+
+export interface Community {
+  id: string;
+  name: string;
+  district: string;
 }
 
 export type RegistrationState = PersonalInfo & TravelInfo & Address;

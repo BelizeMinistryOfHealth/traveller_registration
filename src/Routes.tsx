@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Registration from './pages/Registration/Registration';
 
-const Routes = () => {
+const Routes = (): JSX.Element => {
   return (
     <Switch>
       <Route exact={true} path={'/'} component={Home} />
