@@ -1,5 +1,5 @@
 import './App.css';
-import { grommet, Grommet, Header, Main } from 'grommet';
+import { grommet, Grommet, Main } from 'grommet';
 import Routes from './Routes';
 import { BrowserRouter } from 'react-router-dom';
 import AppHeader from './components/AppHeader/AppHeader';
