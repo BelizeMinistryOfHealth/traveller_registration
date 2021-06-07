@@ -57,7 +57,7 @@ const customBreakpoints = {
 const AppHeader = (): JSX.Element => {
   const mohLabel = 'Ministry of Health & Wellness';
   return (
-    <Grommet theme={customBreakpoints} full>
+    <Grommet theme={customBreakpoints}>
       <ResponsiveContext.Consumer>
         {(size) => (
           <Header background={'brand'} height={'small'} justify={'center'}>
@@ -65,20 +65,20 @@ const AppHeader = (): JSX.Element => {
               (size == 'xsmall' && (
                 <Box direction={'column'} justify={'center'} align={'center'}>
                   <Heading size={'small'}>{mohLabel}</Heading>
-                  <Text>Government of Belize</Text>
+                  <Text>Government of Belize {size}</Text>
                 </Box>
               ))}
             {size == 'large' ||
               (size == 'medium' && (
                 <Box direction={'column'} justify={'center'} align={'center'}>
                   <Heading size={'medium'}>{mohLabel}</Heading>
-                  <Text>Government of Belize</Text>
+                  <Text>Government of Belize {size}</Text>
                 </Box>
               ))}
             {size == 'xlarge' && (
               <Box direction={'column'} justify={'center'} align={'center'}>
                 <Heading size={'medium'}>{mohLabel}</Heading>
-                <Text>Government of Belize</Text>
+                <Text>Government of Belize {size}</Text>
               </Box>
             )}
           </Header>
