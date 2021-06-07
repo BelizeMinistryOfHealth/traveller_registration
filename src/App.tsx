@@ -1,11 +1,11 @@
 import './App.css';
-import { grommet, Grommet, Header, Main, Text } from 'grommet';
+import { grommet, Grommet, Header, Main } from 'grommet';
 import Routes from './Routes';
 import { BrowserRouter } from 'react-router-dom';
 
-function App() {
+function App(): JSX.Element {
   return (
-    <Grommet theme={grommet} full>
+    <Grommet theme={grommet} background={{ color: 'light-6' }}>
       <Header background={'brand'} height={'small'}>
         Welcome
       </Header>
