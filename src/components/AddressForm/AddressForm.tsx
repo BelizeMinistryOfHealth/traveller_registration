@@ -20,6 +20,8 @@ const AddressForm = (props: {
     communities: [],
   });
 
+  const [selectedCommunity, setSelectedCommunity] = React.useState<number>();
+
   React.useEffect(() => {
     const fetchCommunities = async () => {
       try {
@@ -72,18 +74,26 @@ const AddressForm = (props: {
         />
       </FormField>
       {communities.status == 'loading' && <Spinner size={80} />}
-      {communities.status == 'success' && (
+      {communities.status == 'success' && communities.communities.length > 0 && (
         <FormField name={'community'} label={'Municipality'} required>
           <Select
-            options={communities.communities.map((i) => i.name)}
-            placeholder={'Select'}
+            options={communities.communities}
+            id={'communities'}
             name={'community'}
+            placeholder={'Select'}
+            labelKey={'name'}
+            valueKey={{ key: 'id' }}
             onChange={({ option }) => {
-              const comm = communities.communities.find((c) => {
-                return c.name == option;
-              });
+              const comm = option;
               console.log({ option, comm });
               props.setState({ ...props.state, community: comm });
+              if (comm) {
+                const idx = communities.communities.findIndex(
+                  (c) => c.name == comm.name
+                );
+                console.dir({ idx, comm });
+                setSelectedCommunity(idx);
+              }
             }}
           />
         </FormField>

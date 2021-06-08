@@ -51,7 +51,6 @@ const TravelInfoForm = (props: {
         <ReactFlagsSelect
           selected={props.state.countryOfEmbarkation ?? ''}
           onSelect={(countryCode: string) => {
-            console.log(countryCode);
             props.setState({
               ...props.state,
               countryOfEmbarkation: countryCode,
