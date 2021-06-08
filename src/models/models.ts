@@ -1,3 +1,17 @@
+export const ports = [
+  'Northern Border',
+  'Western Border',
+  'PGIA',
+  'Union',
+  'Botes',
+  'Dangriga Town Pier',
+  'Independence',
+  'Punta Gorda',
+  'Jalacte',
+  'Other',
+  'DK/NS',
+];
+
 export interface PersonalInfo {
   firstName?: string;
   middleName?: string;
@@ -9,6 +23,7 @@ export interface PersonalInfo {
   phoneNumbers?: string;
   occupation?: string;
   email?: string;
+  portOfEntry?: string;
 }
 
 export interface TravelInfo {
@@ -29,6 +44,7 @@ export interface TravelInfo {
     | 'Resident'
     | 'Diplomat'
     | 'Official';
+  portOfEntry?: string;
 }
 
 export interface Address {

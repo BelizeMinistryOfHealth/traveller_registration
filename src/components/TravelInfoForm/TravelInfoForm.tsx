@@ -1,7 +1,7 @@
 import React from 'react';
 import { DateInput, FormField, Header, RadioButtonGroup, Text } from 'grommet';
 import ReactFlagsSelect from 'react-flags-select';
-import { RegistrationState } from '../../models/models';
+import { ports, RegistrationState } from '../../models/models';
 
 const TravelInfoForm = (props: {
   state: RegistrationState;
@@ -12,6 +12,14 @@ const TravelInfoForm = (props: {
       <Header>
         <Text size={'xlarge'}>Travel Information</Text>
       </Header>
+      <FormField
+        placeholder={'Port of Arrival'}
+        name={'portOfEntry'}
+        label={'Port of Arrival'}
+        required
+      >
+        <RadioButtonGroup name={'portOfEntry'} options={ports} />
+      </FormField>
       <FormField
         name={'dateOfEmbarkation'}
         label={'Date of Embarkation'}
