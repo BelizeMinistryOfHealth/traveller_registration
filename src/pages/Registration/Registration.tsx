@@ -5,6 +5,7 @@ import TravelInfoForm from '../../components/TravelInfoForm/TravelInfoForm';
 import { deepMerge } from 'grommet/utils';
 import {
   Address,
+  AddressInBelize,
   PersonalInfo,
   RegistrationState,
   TravelInfo,
@@ -34,9 +35,9 @@ const generateId = (formData: RegistrationState): string => {
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const arrivalDate = format(parseISO(formData?.dateOfArrival), 'yyyy-MM-dd');
+  const arrivalDate = format(new Date(), 'yyyy-MM-dd');
 
-  return `${arrivalDate}#${fname}#${lname}#${formData.passportNumber}`;
+  return `${arrivalDate}#${fname}-${lname}#${formData.passportNumber}`;
 };
 
 const saveRegistration = async (formData: RegistrationState) => {
@@ -46,7 +47,8 @@ const saveRegistration = async (formData: RegistrationState) => {
     firstName: formData.firstName,
     middleName: formData.middleName,
     lastName: formData.lastName,
-    dob: formData.dob,
+    fullName: `${formData.firstName} ${formData.middleName} ${formData.lastName}`,
+    dob: format(parseISO(formData?.dob as string), 'yyyy-MM-dd'),
     gender: formData.gender,
     nationality: formData.nationality,
     passportNumber: formData.passportNumber,
@@ -74,18 +76,19 @@ const saveRegistration = async (formData: RegistrationState) => {
 
   const address: Address = {
     id,
-    community: formData.community,
     address: formData.address,
     accommodationName: formData.accommodationName,
   };
+
+  console.dir({ personalInfo, arrivalInfo, address });
 
   const body = JSON.stringify({ personalInfo, arrivalInfo, address });
   const { REACT_APP_API } = process.env;
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  await axios.post(REACT_APP_API, body, {
-    headers: { 'Content-Type': 'application/json' },
-  });
+  // await axios.post(REACT_APP_API, body, {
+  //   headers: { 'Content-Type': 'application/json' },
+  // });
   return 'OK';
 };
 
@@ -108,6 +111,8 @@ const Registration = (): JSX.Element => {
 
   React.useEffect(() => {
     if (formStatus.status == 'saving') {
+      console.dir({ formData });
+      // setFormStatus({ status: 'success' });
       saveRegistration(formData)
         .then((_) => {
           setFormStatus({ status: 'success' });

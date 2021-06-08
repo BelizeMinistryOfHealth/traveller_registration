@@ -17,6 +17,7 @@ export interface PersonalInfo {
   firstName?: string;
   middleName?: string;
   lastName?: string;
+  fullName?: string;
   dob?: string;
   gender?: 'Female' | 'Male';
   nationality?: string;
@@ -49,11 +50,25 @@ export interface TravelInfo {
   portOfEntry?: string;
 }
 
+export interface AddressInBelize {
+  community?: Community;
+  street?: string;
+}
+
 export interface Address {
   id?: string;
-  community?: Community;
-  address?: string;
+  address?: AddressInBelize;
   accommodationName?: string;
+}
+
+export interface AddressFormData {
+  accommodationName?: string;
+}
+
+export interface AddressCommunity {
+  cid?: string;
+  name?: string;
+  district?: string;
 }
 
 export interface Community {
@@ -62,7 +77,10 @@ export interface Community {
   district: string;
 }
 
-export type RegistrationState = PersonalInfo & TravelInfo & Address;
+export type RegistrationState = PersonalInfo &
+  TravelInfo &
+  AddressFormData &
+  AddressCommunity;
 
 // export interface RegistrationProps {
 //   /// Personal Info

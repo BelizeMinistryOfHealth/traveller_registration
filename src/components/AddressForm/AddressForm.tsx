@@ -75,18 +75,21 @@ const AddressForm = (props: {
       </FormField>
       {communities.status == 'loading' && <Spinner size={80} />}
       {communities.status == 'success' && communities.communities.length > 0 && (
-        <FormField name={'community'} label={'Municipality'} required>
+        <FormField name={'name'} label={'Municipality'} required>
           <Select
             options={communities.communities}
             id={'communities'}
-            name={'community'}
+            name={'name'}
             placeholder={'Select'}
             labelKey={'name'}
             valueKey={{ key: 'id' }}
             onChange={({ option }) => {
               const comm = option;
               console.log({ option, comm });
-              props.setState({ ...props.state, community: comm });
+              props.setState({
+                ...props.state,
+                address: { ...props.state.address, community: comm },
+              });
               if (comm) {
                 const idx = communities.communities.findIndex(
                   (c) => c.name == comm.name
