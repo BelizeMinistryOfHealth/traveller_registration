@@ -11,11 +11,11 @@ import {
 const customBreakpoints = {
   global: {
     breakpoints: {
-      xsmall: {
-        value: 375,
-      },
+      // xsmall: {
+      //   value: 375,
+      // },
       small: {
-        value: 568,
+        value: 400,
         edgeSize: {
           none: '0px',
           small: '6px',
@@ -61,24 +61,28 @@ const AppHeader = (): JSX.Element => {
       <ResponsiveContext.Consumer>
         {(size) => (
           <Header background={'brand'} height={'small'} justify={'center'}>
-            {size == 'small' ||
-              (size == 'xsmall' && (
-                <Box direction={'column'} justify={'center'} align={'center'}>
-                  <Heading size={'small'}>{mohLabel}</Heading>
-                  <Text>Government of Belize {size}</Text>
-                </Box>
-              ))}
-            {size == 'large' ||
-              (size == 'medium' && (
-                <Box direction={'column'} justify={'center'} align={'center'}>
-                  <Heading size={'medium'}>{mohLabel}</Heading>
-                  <Text>Government of Belize {size}</Text>
-                </Box>
-              ))}
+            {size == 'small' && (
+              <Box direction={'column'} justify={'center'} align={'center'}>
+                <Text size={'large'}>{mohLabel}</Text>
+                <Text size={'small'}>Government of Belize</Text>
+              </Box>
+            )}
+            {size == 'medium' && (
+              <Box direction={'column'} justify={'center'} align={'center'}>
+                <Text size={'xxlarge'}>{mohLabel}</Text>
+                <Text size={'small'}>Government of Belize</Text>
+              </Box>
+            )}
+            {size == 'large' && (
+              <Box direction={'column'} justify={'center'} align={'center'}>
+                <Heading size={'medium'}>{mohLabel}</Heading>
+                <Text>Government of Belize</Text>
+              </Box>
+            )}
             {size == 'xlarge' && (
               <Box direction={'column'} justify={'center'} align={'center'}>
                 <Heading size={'medium'}>{mohLabel}</Heading>
-                <Text>Government of Belize {size}</Text>
+                <Text>Government of Belize</Text>
               </Box>
             )}
           </Header>
