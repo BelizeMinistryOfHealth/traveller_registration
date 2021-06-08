@@ -28,11 +28,11 @@ const TravelInfoForm = (props: {
         <DateInput name={'dateOfEmbarkation'} format={'yyyy-mm-dd'} />
       </FormField>
       <FormField
-        name={'arrivalDate'}
+        name={'dateOfArrival'}
         label={'Date of Arrival in Belize'}
         required
       >
-        <DateInput name={'arrivalDate'} format={'yyyy-mm-dd'} />
+        <DateInput name={'dateOfArrival'} format={'yyyy-mm-dd'} />
       </FormField>
       <FormField name={'dateOfDeparture'} label={'Departure Date from Belize'}>
         <DateInput name={'dateOfDeparture'} format={'yyyy-mm-dd'} />

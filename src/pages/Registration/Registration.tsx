@@ -29,14 +29,14 @@ const generateId = (formData: RegistrationState): string => {
   }
   let lname = formData.lastName;
   if (lname && lname?.length > 3) {
-    lname = fname?.substring(0, 3);
+    lname = lname?.substring(0, 3);
   }
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const arrivalDate = format(parseISO(formData?.dateOfArrival), 'yyyy-MM-dd');
 
-  return `${arrivalDate}#${fname}#${lname}`;
+  return `${arrivalDate}#${fname}#${lname}#${formData.passportNumber}`;
 };
 
 const saveRegistration = async (formData: RegistrationState) => {
@@ -79,7 +79,13 @@ const saveRegistration = async (formData: RegistrationState) => {
     accommodationName: formData.accommodationName,
   };
 
-  const result = await axios.post('', { personalInfo, arrivalInfo, address });
+  const body = JSON.stringify({ personalInfo, arrivalInfo, address });
+  const { REACT_APP_API } = process.env;
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  await axios.post(REACT_APP_API, body, {
+    headers: { 'Content-Type': 'application/json' },
+  });
   return 'OK';
 };
 
@@ -99,6 +105,19 @@ const Registration = (): JSX.Element => {
   const [formStatus, setFormStatus] = React.useState<FormStatus>({
     status: 'clean',
   });
+
+  React.useEffect(() => {
+    if (formStatus.status == 'saving') {
+      saveRegistration(formData)
+        .then((_) => {
+          setFormStatus({ status: 'success' });
+        })
+        .catch((err) => {
+          console.error(err);
+          setFormStatus({ status: 'error' });
+        });
+    }
+  }, [formStatus]);
 
   const onChange = (nextValue: RegistrationState) => {
     setFormData(nextValue);
