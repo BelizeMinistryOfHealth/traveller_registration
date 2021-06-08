@@ -13,6 +13,7 @@ export const ports = [
 ];
 
 export interface PersonalInfo {
+  id?: string;
   firstName?: string;
   middleName?: string;
   lastName?: string;
@@ -27,6 +28,7 @@ export interface PersonalInfo {
 }
 
 export interface TravelInfo {
+  id?: string;
   dateOfArrival?: string;
   dateOfDeparture?: string;
   dateOfEmbarkation?: string;
@@ -48,6 +50,7 @@ export interface TravelInfo {
 }
 
 export interface Address {
+  id?: string;
   community?: Community;
   address?: string;
   accommodationName?: string;

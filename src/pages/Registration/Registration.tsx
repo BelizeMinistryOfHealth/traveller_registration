@@ -3,8 +3,16 @@ import PersonalInfoForm from '../../components/PersonalInfoForm/PersonalInfoForm
 import { Box, Form, Button, grommet, Grommet } from 'grommet';
 import TravelInfoForm from '../../components/TravelInfoForm/TravelInfoForm';
 import { deepMerge } from 'grommet/utils';
-import { RegistrationState } from '../../models/models';
+import {
+  Address,
+  PersonalInfo,
+  RegistrationState,
+  TravelInfo,
+} from '../../models/models';
 import AddressForm from '../../components/AddressForm/AddressForm';
+import { format, parseISO } from 'date-fns';
+import axios from 'axios';
+import Spinner from '../../components/Spinner/Spinner';
 
 const formTheme = deepMerge(grommet, {
   formField: {
@@ -13,6 +21,71 @@ const formTheme = deepMerge(grommet, {
     },
   },
 });
+
+const generateId = (formData: RegistrationState): string => {
+  let fname = formData.firstName;
+  if (fname && fname?.length > 3) {
+    fname = fname?.substring(0, 3);
+  }
+  let lname = formData.lastName;
+  if (lname && lname?.length > 3) {
+    lname = fname?.substring(0, 3);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const arrivalDate = format(parseISO(formData?.dateOfArrival), 'yyyy-MM-dd');
+
+  return `${arrivalDate}#${fname}#${lname}`;
+};
+
+const saveRegistration = async (formData: RegistrationState) => {
+  const id = generateId(formData);
+  const personalInfo: PersonalInfo = {
+    id,
+    firstName: formData.firstName,
+    middleName: formData.middleName,
+    lastName: formData.lastName,
+    dob: formData.dob,
+    gender: formData.gender,
+    nationality: formData.nationality,
+    passportNumber: formData.passportNumber,
+    phoneNumbers: formData.phoneNumbers,
+    occupation: formData.occupation,
+    email: formData.email,
+    portOfEntry: formData.portOfEntry,
+  };
+
+  const arrivalInfo: TravelInfo = {
+    id,
+    dateOfArrival: formData.dateOfArrival,
+    dateOfDeparture: formData.dateOfDeparture,
+    dateOfEmbarkation: formData.dateOfEmbarkation,
+    countryOfEmbarkation: formData.countryOfEmbarkation,
+    travelOrigin: formData.travelOrigin,
+    contactPerson: formData.contactPerson,
+    contactPersonEmail: formData.contactPersonEmail,
+    contactPersonPhoneNumber: formData.contactPersonPhoneNumber,
+    vesselNumber: formData.vesselNumber,
+    modeOfTravel: formData.modeOfTravel,
+    purposeOfTrip: formData.purposeOfTrip,
+    portOfEntry: formData.portOfEntry,
+  };
+
+  const address: Address = {
+    id,
+    community: formData.community,
+    address: formData.address,
+    accommodationName: formData.accommodationName,
+  };
+
+  const result = await axios.post('', { personalInfo, arrivalInfo, address });
+  return 'OK';
+};
+
+interface FormStatus {
+  status: 'success' | 'clean' | 'saving' | 'error';
+}
 
 const Registration = (): JSX.Element => {
   const [formData, setFormData] = React.useState<RegistrationState>({
@@ -23,10 +96,30 @@ const Registration = (): JSX.Element => {
     passportNumber: '',
   });
 
+  const [formStatus, setFormStatus] = React.useState<FormStatus>({
+    status: 'clean',
+  });
+
   const onChange = (nextValue: RegistrationState) => {
-    // console.log(nextValue);
     setFormData(nextValue);
   };
+
+  if (formStatus.status == 'saving') {
+    return (
+      <Grommet theme={formTheme} background={{ color: 'light-6' }} full>
+        <Box
+          fill
+          pad={'medium'}
+          gap={'large'}
+          align={'center'}
+          responsive={true}
+          background={{ color: 'light-6' }}
+        >
+          <Spinner size={244} />
+        </Box>
+      </Grommet>
+    );
+  }
 
   return (
     <Grommet theme={formTheme} background={{ color: 'light-6' }}>
@@ -41,7 +134,11 @@ const Registration = (): JSX.Element => {
         <Form
           value={formData}
           onChange={(value: RegistrationState) => onChange(value)}
-          onSubmit={(e) => console.log(e.value)}
+          onSubmit={(e) => {
+            console.log(e.value);
+            console.log(format(parseISO(`${e.value.dob}`), 'yyyy-MM-dd'));
+            setFormStatus({ status: 'saving' });
+          }}
         >
           <Box pad={'medium'} gap={'large'}>
             <Box
