@@ -2,14 +2,8 @@ import React from 'react';
 import PersonalInfoForm from '../../components/PersonalInfoForm/PersonalInfoForm';
 import { Box, Form, Button, grommet, Grommet } from 'grommet';
 import { deepMerge } from 'grommet/utils';
-import {
-  Address,
-  PersonalInfo,
-  RegistrationState,
-  TravelInfo,
-} from '../../models/models';
+import { PersonalInfo } from '../../models/models';
 import { format, parseISO } from 'date-fns';
-import axios from 'axios';
 import Spinner from '../../components/Spinner/Spinner';
 import { useRegistration } from '../../providers/RegistrationProvider';
 import { useHistory } from 'react-router-dom';
@@ -39,23 +33,8 @@ const generateId = (formData: PersonalInfo): string => {
   return `${arrivalDate}#${fname}-${lname}#${formData.passportNumber}`;
 };
 
-const saveRegistration = async (formData: RegistrationState) => {
-  // const body = JSON.stringify({ personalInfo, arrivalInfo, address });
-  // const { REACT_APP_API } = process.env;
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  // await axios.post(REACT_APP_API, body, {
-  //   headers: { 'Content-Type': 'application/json' },
-  // });
-  return 'OK';
-};
-
 interface FormStatus {
   status: 'success' | 'clean' | 'saving' | 'error';
-}
-
-interface FormState {
-  currentPage: 'personalInfo' | 'travelInfo' | 'address' | 'saving' | 'saved';
 }
 
 const Registration = (): JSX.Element => {
