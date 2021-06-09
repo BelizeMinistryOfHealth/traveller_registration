@@ -1,12 +1,7 @@
 import React from 'react';
-import {
-  Text,
-  Header,
-  Heading,
-  Box,
-  Grommet,
-  ResponsiveContext,
-} from 'grommet';
+import { Text, Header, Box, Grommet, ResponsiveContext } from 'grommet';
+
+import { useHistory } from 'react-router-dom';
 
 const customBreakpoints = {
   global: {
@@ -54,36 +49,62 @@ const customBreakpoints = {
   },
 };
 
+interface BannerProps {
+  titleSize: string;
+  subTitleSize: string;
+  title: string;
+}
+
+const Banner = (props: BannerProps): JSX.Element => {
+  const history = useHistory();
+  return (
+    <Box
+      direction={'column'}
+      justify={'center'}
+      align={'center'}
+      onClick={() => history.push('/')}
+    >
+      <Text size={props.titleSize}>{props.title}</Text>
+      <Text size={props.subTitleSize}>Government Of Belize</Text>
+    </Box>
+  );
+};
+
 const AppHeader = (): JSX.Element => {
   const mohLabel = 'Ministry of Health & Wellness';
+
   return (
     <Grommet theme={customBreakpoints}>
       <ResponsiveContext.Consumer>
         {(size) => (
           <Header background={'brand'} height={'small'} justify={'center'}>
             {size == 'small' && (
-              <Box direction={'column'} justify={'center'} align={'center'}>
-                <Text size={'large'}>{mohLabel}</Text>
-                <Text size={'small'}>Government of Belize</Text>
-              </Box>
+              <Banner
+                titleSize={'large'}
+                subTitleSize={'small'}
+                title={mohLabel}
+              />
             )}
             {size == 'medium' && (
-              <Box direction={'column'} justify={'center'} align={'center'}>
-                <Text size={'xxlarge'}>{mohLabel}</Text>
-                <Text size={'small'}>Government of Belize</Text>
-              </Box>
+              <Banner
+                titleSize={'xxlarge'}
+                subTitleSize={'small'}
+                title={mohLabel}
+              />
             )}
             {size == 'large' && (
-              <Box direction={'column'} justify={'center'} align={'center'}>
-                <Heading size={'medium'}>{mohLabel}</Heading>
-                <Text>Government of Belize</Text>
-              </Box>
+              <Banner
+                titleSize={'xlarge'}
+                subTitleSize={'small'}
+                title={mohLabel}
+              />
             )}
             {size == 'xlarge' && (
-              <Box direction={'column'} justify={'center'} align={'center'}>
-                <Heading size={'medium'}>{mohLabel}</Heading>
-                <Text>Government of Belize</Text>
-              </Box>
+              <Banner
+                titleSize={'xxlarge'}
+                subTitleSize={'medium'}
+                title={mohLabel}
+              />
             )}
           </Header>
         )}

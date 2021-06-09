@@ -1,19 +1,18 @@
 import React from 'react';
 import PersonalInfoForm from '../../components/PersonalInfoForm/PersonalInfoForm';
 import { Box, Form, Button, grommet, Grommet } from 'grommet';
-import TravelInfoForm from '../../components/TravelInfoForm/TravelInfoForm';
 import { deepMerge } from 'grommet/utils';
 import {
   Address,
-  AddressInBelize,
   PersonalInfo,
   RegistrationState,
   TravelInfo,
 } from '../../models/models';
-import AddressForm from '../../components/AddressForm/AddressForm';
 import { format, parseISO } from 'date-fns';
 import axios from 'axios';
 import Spinner from '../../components/Spinner/Spinner';
+import { useRegistration } from '../../providers/RegistrationProvider';
+import { useHistory } from 'react-router-dom';
 
 const formTheme = deepMerge(grommet, {
   formField: {
@@ -23,7 +22,7 @@ const formTheme = deepMerge(grommet, {
   },
 });
 
-const generateId = (formData: RegistrationState): string => {
+const generateId = (formData: PersonalInfo): string => {
   let fname = formData.firstName;
   if (fname && fname?.length > 3) {
     fname = fname?.substring(0, 3);
@@ -41,49 +40,8 @@ const generateId = (formData: RegistrationState): string => {
 };
 
 const saveRegistration = async (formData: RegistrationState) => {
-  const id = generateId(formData);
-  const personalInfo: PersonalInfo = {
-    id,
-    firstName: formData.firstName,
-    middleName: formData.middleName,
-    lastName: formData.lastName,
-    fullName: `${formData.firstName} ${formData.middleName} ${formData.lastName}`,
-    dob: format(parseISO(formData?.dob as string), 'yyyy-MM-dd'),
-    gender: formData.gender,
-    nationality: formData.nationality,
-    passportNumber: formData.passportNumber,
-    phoneNumbers: formData.phoneNumbers,
-    occupation: formData.occupation,
-    email: formData.email,
-    portOfEntry: formData.portOfEntry,
-  };
-
-  const arrivalInfo: TravelInfo = {
-    id,
-    dateOfArrival: formData.dateOfArrival,
-    dateOfDeparture: formData.dateOfDeparture,
-    dateOfEmbarkation: formData.dateOfEmbarkation,
-    countryOfEmbarkation: formData.countryOfEmbarkation,
-    travelOrigin: formData.travelOrigin,
-    contactPerson: formData.contactPerson,
-    contactPersonEmail: formData.contactPersonEmail,
-    contactPersonPhoneNumber: formData.contactPersonPhoneNumber,
-    vesselNumber: formData.vesselNumber,
-    modeOfTravel: formData.modeOfTravel,
-    purposeOfTrip: formData.purposeOfTrip,
-    portOfEntry: formData.portOfEntry,
-  };
-
-  const address: Address = {
-    id,
-    address: formData.address,
-    accommodationName: formData.accommodationName,
-  };
-
-  console.dir({ personalInfo, arrivalInfo, address });
-
-  const body = JSON.stringify({ personalInfo, arrivalInfo, address });
-  const { REACT_APP_API } = process.env;
+  // const body = JSON.stringify({ personalInfo, arrivalInfo, address });
+  // const { REACT_APP_API } = process.env;
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   // await axios.post(REACT_APP_API, body, {
@@ -96,36 +54,28 @@ interface FormStatus {
   status: 'success' | 'clean' | 'saving' | 'error';
 }
 
+interface FormState {
+  currentPage: 'personalInfo' | 'travelInfo' | 'address' | 'saving' | 'saved';
+}
+
 const Registration = (): JSX.Element => {
-  const [formData, setFormData] = React.useState<RegistrationState>({
-    firstName: '',
-    lastName: '',
-    middleName: '',
-    dob: '',
-    passportNumber: '',
-  });
+  const { personalInfo, setPersonalInfo } = useRegistration();
+  const history = useHistory();
 
   const [formStatus, setFormStatus] = React.useState<FormStatus>({
     status: 'clean',
   });
 
-  React.useEffect(() => {
-    if (formStatus.status == 'saving') {
-      console.dir({ formData });
-      // setFormStatus({ status: 'success' });
-      saveRegistration(formData)
-        .then((_) => {
-          setFormStatus({ status: 'success' });
-        })
-        .catch((err) => {
-          console.error(err);
-          setFormStatus({ status: 'error' });
-        });
-    }
-  }, [formStatus]);
-
-  const onChange = (nextValue: RegistrationState) => {
-    setFormData(nextValue);
+  const submit = () => {
+    setPersonalInfo?.({
+      ...personalInfo,
+      id: generateId(personalInfo as PersonalInfo),
+      fullName: `${personalInfo?.firstName} ${personalInfo?.middleName ?? ''} ${
+        personalInfo?.lastName
+      }`.trim(),
+      dob: format(parseISO(personalInfo?.dob as string), 'yyyy-MM-dd'),
+    });
+    history.push('/travelInfo');
   };
 
   if (formStatus.status == 'saving') {
@@ -156,13 +106,9 @@ const Registration = (): JSX.Element => {
         background={{ color: 'light-6' }}
       >
         <Form
-          value={formData}
-          onChange={(value: RegistrationState) => onChange(value)}
-          onSubmit={(e) => {
-            console.log(e.value);
-            console.log(format(parseISO(`${e.value.dob}`), 'yyyy-MM-dd'));
-            setFormStatus({ status: 'saving' });
-          }}
+          value={personalInfo}
+          onChange={setPersonalInfo}
+          onSubmit={() => submit()}
         >
           <Box pad={'medium'} gap={'large'}>
             <Box
@@ -176,36 +122,9 @@ const Registration = (): JSX.Element => {
                 opacity: true,
               }}
             >
-              <PersonalInfoForm state={formData} setState={setFormData} />
+              <PersonalInfoForm />
             </Box>
-            <Box
-              gridArea={'travelInfo'}
-              responsive={true}
-              width={'large'}
-              gap={'medium'}
-              round={'medium'}
-              pad={'large'}
-              background={{
-                color: 'light-1',
-                opacity: true,
-              }}
-            >
-              <TravelInfoForm state={formData} setState={setFormData} />
-            </Box>
-            <Box
-              gridArea={'travelInfo'}
-              responsive={true}
-              width={'large'}
-              gap={'medium'}
-              round={'medium'}
-              pad={'large'}
-              background={{
-                color: 'light-1',
-                opacity: true,
-              }}
-            >
-              <AddressForm state={formData} setState={setFormData} />
-            </Box>
+
             <Box
               align={'center'}
               pad={'large'}
@@ -218,7 +137,7 @@ const Registration = (): JSX.Element => {
               <Button
                 size={'large'}
                 type={'submit'}
-                label={'Save'}
+                label={'Next'}
                 alignSelf={'center'}
               />
             </Box>

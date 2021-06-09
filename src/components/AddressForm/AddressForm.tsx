@@ -1,8 +1,9 @@
 import React from 'react';
-import { Community, RegistrationState } from '../../models/models';
+import { Community } from '../../models/models';
 import { Header, Text, FormField, RadioButtonGroup, Select } from 'grommet';
 import axios from 'axios';
 import Spinner from '../Spinner/Spinner';
+import { useRegistration } from '../../providers/RegistrationProvider';
 
 interface Communities {
   district?: string;
@@ -11,16 +12,15 @@ interface Communities {
   error?: any;
 }
 
-const AddressForm = (props: {
-  state: RegistrationState;
-  setState: (st: RegistrationState) => void;
-}): JSX.Element => {
+const AddressForm = (): JSX.Element => {
+  const { personalInfo, address, setAddress } = useRegistration();
   const [communities, setCommunities] = React.useState<Communities>({
     status: 'loading',
     communities: [],
   });
+  const [community, setCommunity] = React.useState<Community>();
 
-  const [selectedCommunity, setSelectedCommunity] = React.useState<number>();
+  console.log({ personalInfo });
 
   React.useEffect(() => {
     const fetchCommunities = async () => {
@@ -47,7 +47,9 @@ const AddressForm = (props: {
   return (
     <>
       <Header>
-        <Text size={'xlarge'}>Address In Belize</Text>
+        <Text size={'xlarge'}>
+          Address In Belize | {personalInfo?.fullName}
+        </Text>
       </Header>
       <FormField
         name={'district'}
@@ -83,19 +85,20 @@ const AddressForm = (props: {
             placeholder={'Select'}
             labelKey={'name'}
             valueKey={{ key: 'id' }}
+            value={community}
             onChange={({ option }) => {
               const comm = option;
-              console.log({ option, comm });
-              props.setState({
-                ...props.state,
-                address: { ...props.state.address, community: comm },
-              });
               if (comm) {
                 const idx = communities.communities.findIndex(
                   (c) => c.name == comm.name
                 );
                 console.dir({ idx, comm });
-                setSelectedCommunity(idx);
+                setAddress?.({
+                  ...address,
+                  communityId: comm.id,
+                  name: comm.name,
+                });
+                setCommunity(comm);
               }
             }}
           />
@@ -106,7 +109,7 @@ const AddressForm = (props: {
         label={'Gold Standard Hotel'}
         placeholder={'Gold Standard Hotel'}
       />
-      <FormField name={'address'} label={'Street'} placeholder={'Street'} />
+      <FormField name={'street'} label={'Street'} placeholder={'Street'} />
     </>
   );
 };

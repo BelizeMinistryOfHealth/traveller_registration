@@ -51,14 +51,15 @@ export interface TravelInfo {
 }
 
 export interface AddressInBelize {
+  id: string;
+  address: string;
   community?: Community;
-  street?: string;
 }
 
 export interface Address {
-  id?: string;
+  id: string;
   address?: AddressInBelize;
-  accommodationName?: string;
+  accommodationName: string;
 }
 
 export interface AddressFormData {
@@ -77,39 +78,15 @@ export interface Community {
   district: string;
 }
 
+export interface RawAddress {
+  communityId?: string;
+  name?: string;
+  district?: string;
+  accommodationName?: string;
+  street?: string;
+}
+
 export type RegistrationState = PersonalInfo &
   TravelInfo &
   AddressFormData &
   AddressCommunity;
-
-// export interface RegistrationProps {
-//   /// Personal Info
-//   firstName?: string;
-//   middleName?: string;
-//   lastName?: string;
-//   dob?: string;
-//   gender?: 'Female' | 'Male';
-//   nationality?: string;
-//   passportNumber?: string;
-//   phoneNumbers?: string;
-//   occupation?: string;
-//   email?: string;
-//   /// Travel Info
-//   dateOfArrival?: string;
-//   dateOfDeparture?: string;
-//   dateOfEmbarkation?: string;
-//   countryOfEmbarkation?: string;
-//   travelOrigin?: string;
-//   contactPerson?: string;
-//   contactPersonPhoneNumber?: string;
-//   contactPersonEmail?: string;
-//   vesselNumber?: string;
-//   modeOfTravel?: 'air' | 'land' | 'sea';
-//   purposeOfTrip?:
-//     | 'Tourist'
-//     | 'Business'
-//     | 'Student'
-//     | 'Resident'
-//     | 'Diplomat'
-//     | 'Official';
-// }

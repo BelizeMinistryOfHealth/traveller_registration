@@ -1,16 +1,17 @@
 import React from 'react';
 import { DateInput, FormField, Header, RadioButtonGroup, Text } from 'grommet';
 import ReactFlagsSelect from 'react-flags-select';
-import { ports, RegistrationState } from '../../models/models';
+import { ports } from '../../models/models';
+import { useRegistration } from '../../providers/RegistrationProvider';
 
-const TravelInfoForm = (props: {
-  state: RegistrationState;
-  setState: (st: RegistrationState) => void;
-}): JSX.Element => {
+const TravelInfoForm = (): JSX.Element => {
+  const { personalInfo, arrivalInfo, setArrivalInfo } = useRegistration();
   return (
     <>
       <Header>
-        <Text size={'xlarge'}>Travel Information</Text>
+        <Text size={'xlarge'}>
+          Travel Information | {personalInfo?.fullName}
+        </Text>
       </Header>
       <FormField
         placeholder={'Port of Arrival'}
@@ -49,10 +50,10 @@ const TravelInfoForm = (props: {
         required
       >
         <ReactFlagsSelect
-          selected={props.state.countryOfEmbarkation ?? ''}
+          selected={arrivalInfo?.countryOfEmbarkation ?? ''}
           onSelect={(countryCode: string) => {
-            props.setState({
-              ...props.state,
+            setArrivalInfo?.({
+              ...arrivalInfo,
               countryOfEmbarkation: countryCode,
             });
           }}
@@ -103,7 +104,11 @@ const TravelInfoForm = (props: {
             'Student',
             'Resident',
             'Diplomat',
+            'Medical',
             'Official',
+            'Sport',
+            'Intransit',
+            'Second Home Owner',
           ]}
         />
       </FormField>

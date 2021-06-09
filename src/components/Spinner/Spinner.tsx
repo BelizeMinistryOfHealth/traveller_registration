@@ -7,7 +7,7 @@ export interface SpinnerProps {
 }
 
 const Spinner = (props: SpinnerProps): JSX.Element => (
-  <Box align='center' justify='center' flex={'grow'}>
+  <Box align='center' justify='center'>
     <SpinnerSvg height={props.size} width={props.size} />
   </Box>
 );
