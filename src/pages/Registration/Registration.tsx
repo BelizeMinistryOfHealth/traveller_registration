@@ -61,7 +61,6 @@ const Registration = (): JSX.Element => {
               {size == 'small' && (
                 <Box pad={'medium'} gap={'large'}>
                   <Box
-                    gridArea={'pInfo'}
                     gap={'large'}
                     pad={'medium'}
                     width={'medium'}

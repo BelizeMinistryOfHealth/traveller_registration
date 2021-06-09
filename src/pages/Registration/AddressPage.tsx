@@ -1,5 +1,13 @@
 import React from 'react';
-import { Box, Button, Form, Heading, ResponsiveContext, Text } from 'grommet';
+import {
+  Box,
+  Button,
+  Form,
+  Heading,
+  ResponsiveContext,
+  Text,
+  Grommet,
+} from 'grommet';
 import { useRegistration } from '../../providers/RegistrationProvider';
 import { useHistory } from 'react-router-dom';
 import AddressForm from '../../components/AddressForm/AddressForm';
@@ -7,6 +15,7 @@ import Spinner from '../../components/Spinner/Spinner';
 import FormContainer from '../../components/FormContainer/FormContainer';
 import { Address, PersonalInfo, TravelInfo } from '../../models/models';
 import axios from 'axios';
+import { formTheme } from '../../themes';
 
 interface FormState {
   status: 'saving' | 'success' | 'failure' | 'entry';
@@ -159,116 +168,198 @@ const AddressPage = () => {
   }
 
   return (
-    <FormContainer>
+    <Grommet theme={formTheme} background={{ color: 'light-6' }}>
       <ResponsiveContext.Consumer>
         {(size) => (
-          <Form
-            value={address}
-            onChange={setAddress}
-            onSubmit={(e) => submit(e)}
+          <Box
+            fill
+            pad={'medium'}
+            gap={'large'}
+            align={'center'}
+            responsive={true}
+            flex={'grow'}
+            background={{ color: 'light-6' }}
           >
-            {size == 'small' && (
-              <Box pad={'medium'} gap={'large'}>
-                <Box
-                  gridArea={'pInfo'}
-                  gap={'large'}
-                  pad={'large'}
-                  width={'medium'}
-                  round={'medium'}
-                  elevation={'small'}
-                  background={{
-                    color: 'light-1',
-                    opacity: true,
-                  }}
-                >
-                  <AddressForm />
-                </Box>
-              </Box>
-            )}
-            {size == 'small' && (
-              <Box pad={'medium'} gap={'large'}>
-                <Box
-                  gridArea={'pInfo'}
-                  gap={'large'}
-                  pad={'large'}
-                  width={'medium'}
-                  round={'medium'}
-                  elevation={'small'}
-                  background={{
-                    color: 'light-1',
-                    opacity: true,
-                  }}
-                >
-                  <AddressForm />
-                </Box>
-              </Box>
-            )}
-            {size == 'large' && (
-              <Box pad={'medium'} gap={'large'}>
-                <Box
-                  gridArea={'pInfo'}
-                  gap={'large'}
-                  pad={'large'}
-                  width={'large'}
-                  round={'medium'}
-                  elevation={'small'}
-                  background={{
-                    color: 'light-1',
-                    opacity: true,
-                  }}
-                >
-                  <AddressForm />
-                </Box>
-              </Box>
-            )}
-            {size == 'xlarge' && (
-              <Box pad={'medium'} gap={'large'}>
-                <Box
-                  gridArea={'pInfo'}
-                  gap={'large'}
-                  pad={'large'}
-                  width={'large'}
-                  round={'medium'}
-                  elevation={'small'}
-                  background={{
-                    color: 'light-1',
-                    opacity: true,
-                  }}
-                >
-                  <AddressForm />
-                </Box>
-              </Box>
-            )}
-
-            <Box
-              direction={'row'}
-              justify={'center'}
-              align={'center'}
-              pad={'large'}
-              gap={'medium'}
-              round={'medium'}
-              background={{
-                color: 'light-1',
-                opacity: true,
-              }}
+            <Form
+              value={address}
+              onChange={setAddress}
+              onSubmit={(e) => submit(e)}
             >
-              <Button
-                size={'large'}
-                label={'Previous'}
-                alignSelf={'center'}
-                onClick={() => history.push('/travelInfo')}
-              />
-              <Button
-                size={'large'}
-                type={'submit'}
-                label={'Save'}
-                alignSelf={'center'}
-              />
-            </Box>
-          </Form>
+              {size == 'small' && (
+                <Box pad={'medium'} gap={'large'}>
+                  <Box
+                    gap={'large'}
+                    pad={'medium'}
+                    width={'medium'}
+                    round={'medium'}
+                    elevation={'small'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <AddressForm />
+                  </Box>
+                  <Box
+                    direction={'row'}
+                    justify={'center'}
+                    align={'center'}
+                    pad={'large'}
+                    gap={'medium'}
+                    round={'medium'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <Button
+                      size={'large'}
+                      label={'Previous'}
+                      alignSelf={'center'}
+                      onClick={() => history.push('/travelInfo')}
+                    />
+                    <Button
+                      size={'large'}
+                      type={'submit'}
+                      label={'Save'}
+                      alignSelf={'center'}
+                    />
+                  </Box>
+                </Box>
+              )}
+              {size == 'medium' && (
+                <Box pad={'medium'} gap={'large'}>
+                  <Box
+                    gap={'large'}
+                    pad={'large'}
+                    width={'medium'}
+                    round={'medium'}
+                    elevation={'small'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <AddressForm />
+                  </Box>
+                  <Box
+                    direction={'row'}
+                    justify={'center'}
+                    align={'center'}
+                    pad={'large'}
+                    gap={'medium'}
+                    round={'medium'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <Button
+                      size={'large'}
+                      label={'Previous'}
+                      alignSelf={'center'}
+                      onClick={() => history.push('/travelInfo')}
+                    />
+                    <Button
+                      size={'large'}
+                      type={'submit'}
+                      label={'Save'}
+                      alignSelf={'center'}
+                    />
+                  </Box>
+                </Box>
+              )}
+              {size == 'large' && (
+                <Box pad={'medium'} gap={'large'}>
+                  <Box
+                    gridArea={'pInfo'}
+                    gap={'large'}
+                    pad={'large'}
+                    width={'large'}
+                    round={'medium'}
+                    elevation={'small'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <AddressForm />
+                  </Box>
+                  <Box
+                    direction={'row'}
+                    justify={'center'}
+                    align={'center'}
+                    pad={'large'}
+                    gap={'medium'}
+                    round={'medium'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <Button
+                      size={'large'}
+                      label={'Previous'}
+                      alignSelf={'center'}
+                      onClick={() => history.push('/travelInfo')}
+                    />
+                    <Button
+                      size={'large'}
+                      type={'submit'}
+                      label={'Save'}
+                      alignSelf={'center'}
+                    />
+                  </Box>
+                </Box>
+              )}
+              {size == 'xlarge' && (
+                <Box pad={'medium'} gap={'large'}>
+                  <Box
+                    gridArea={'pInfo'}
+                    gap={'large'}
+                    pad={'large'}
+                    width={'large'}
+                    round={'medium'}
+                    elevation={'small'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <AddressForm />
+                  </Box>
+                  <Box
+                    direction={'row'}
+                    justify={'center'}
+                    align={'center'}
+                    pad={'large'}
+                    gap={'medium'}
+                    round={'medium'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <Button
+                      size={'large'}
+                      label={'Previous'}
+                      alignSelf={'center'}
+                      onClick={() => history.push('/travelInfo')}
+                    />
+                    <Button
+                      size={'large'}
+                      type={'submit'}
+                      label={'Save'}
+                      alignSelf={'center'}
+                    />
+                  </Box>
+                </Box>
+              )}
+            </Form>
+          </Box>
         )}
       </ResponsiveContext.Consumer>
-    </FormContainer>
+    </Grommet>
   );
 };
 
