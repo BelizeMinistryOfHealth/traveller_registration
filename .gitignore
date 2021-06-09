@@ -24,6 +24,6 @@ yarn-error.log*
 
 .idea
 
-.firebaes
+/.firebase
 .env.development
 .env.production
