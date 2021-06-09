@@ -1,20 +1,11 @@
 import React from 'react';
 import PersonalInfoForm from '../../components/PersonalInfoForm/PersonalInfoForm';
-import { Box, Form, Button, grommet, Grommet } from 'grommet';
-import { deepMerge } from 'grommet/utils';
+import { Box, Form, Button, Grommet, ResponsiveContext } from 'grommet';
 import { PersonalInfo } from '../../models/models';
 import { format, parseISO } from 'date-fns';
-import Spinner from '../../components/Spinner/Spinner';
 import { useRegistration } from '../../providers/RegistrationProvider';
 import { useHistory } from 'react-router-dom';
-
-const formTheme = deepMerge(grommet, {
-  formField: {
-    border: {
-      side: 'all',
-    },
-  },
-});
+import { formTheme } from '../../themes';
 
 const generateId = (formData: PersonalInfo): string => {
   let fname = formData.firstName;
@@ -33,17 +24,9 @@ const generateId = (formData: PersonalInfo): string => {
   return `${arrivalDate}#${fname}-${lname}#${formData.passportNumber}`;
 };
 
-interface FormStatus {
-  status: 'success' | 'clean' | 'saving' | 'error';
-}
-
 const Registration = (): JSX.Element => {
   const { personalInfo, setPersonalInfo } = useRegistration();
   const history = useHistory();
-
-  const [formStatus, setFormStatus] = React.useState<FormStatus>({
-    status: 'clean',
-  });
 
   const submit = () => {
     setPersonalInfo?.({
@@ -57,72 +40,163 @@ const Registration = (): JSX.Element => {
     history.push('/travelInfo');
   };
 
-  if (formStatus.status == 'saving') {
-    return (
-      <Grommet theme={formTheme} background={{ color: 'light-6' }} full>
-        <Box
-          fill
-          pad={'medium'}
-          gap={'large'}
-          align={'center'}
-          responsive={true}
-          background={{ color: 'light-6' }}
-        >
-          <Spinner size={244} />
-        </Box>
-      </Grommet>
-    );
-  }
-
   return (
     <Grommet theme={formTheme} background={{ color: 'light-6' }}>
-      <Box
-        fill
-        pad={'medium'}
-        gap={'large'}
-        align={'center'}
-        responsive={true}
-        background={{ color: 'light-6' }}
-      >
-        <Form
-          value={personalInfo}
-          onChange={setPersonalInfo}
-          onSubmit={() => submit()}
-        >
-          <Box pad={'medium'} gap={'large'}>
-            <Box
-              gridArea={'pInfo'}
-              gap={'large'}
-              pad={'large'}
-              width={'large'}
-              round={'medium'}
-              background={{
-                color: 'light-1',
-                opacity: true,
-              }}
+      <ResponsiveContext.Consumer>
+        {(size) => (
+          <Box
+            fill
+            pad={'medium'}
+            gap={'large'}
+            align={'center'}
+            responsive={true}
+            background={{ color: 'light-6' }}
+          >
+            <Form
+              value={personalInfo}
+              onChange={setPersonalInfo}
+              onSubmit={() => submit()}
             >
-              <PersonalInfoForm />
-            </Box>
+              {size == 'small' && (
+                <Box pad={'medium'} gap={'large'}>
+                  <Box
+                    gridArea={'pInfo'}
+                    gap={'large'}
+                    pad={'medium'}
+                    width={'medium'}
+                    round={'medium'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <PersonalInfoForm />
+                  </Box>
 
-            <Box
-              align={'center'}
-              pad={'large'}
-              round={'medium'}
-              background={{
-                color: 'light-1',
-                opacity: true,
-              }}
-            >
-              <Button
-                size={'large'}
-                type={'submit'}
-                label={'Next'}
-                alignSelf={'center'}
-              />
-            </Box>
+                  <Box
+                    align={'center'}
+                    pad={'large'}
+                    round={'medium'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <Button
+                      size={'large'}
+                      type={'submit'}
+                      label={'Next'}
+                      alignSelf={'center'}
+                    />
+                  </Box>
+                </Box>
+              )}
+              {size == 'medium' && (
+                <Box pad={'medium'} gap={'large'}>
+                  <Box
+                    gridArea={'pInfo'}
+                    gap={'large'}
+                    pad={'medium'}
+                    width={'medium'}
+                    round={'medium'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <PersonalInfoForm />
+                  </Box>
+
+                  <Box
+                    align={'center'}
+                    pad={'large'}
+                    round={'medium'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <Button
+                      size={'large'}
+                      type={'submit'}
+                      label={'Next'}
+                      alignSelf={'center'}
+                    />
+                  </Box>
+                </Box>
+              )}
+              {size == 'large' && (
+                <Box pad={'medium'} gap={'large'}>
+                  <Box
+                    gridArea={'pInfo'}
+                    gap={'large'}
+                    pad={'medium'}
+                    width={'large'}
+                    round={'medium'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <PersonalInfoForm />
+                  </Box>
+
+                  <Box
+                    align={'center'}
+                    pad={'large'}
+                    round={'medium'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <Button
+                      size={'large'}
+                      type={'submit'}
+                      label={'Next'}
+                      alignSelf={'center'}
+                    />
+                  </Box>
+                </Box>
+              )}
+              {size == 'xlarge' && (
+                <Box pad={'medium'} gap={'large'}>
+                  <Box
+                    gridArea={'pInfo'}
+                    gap={'large'}
+                    pad={'medium'}
+                    width={'large'}
+                    round={'medium'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <PersonalInfoForm />
+                  </Box>
+
+                  <Box
+                    align={'center'}
+                    pad={'large'}
+                    round={'medium'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <Button
+                      size={'large'}
+                      type={'submit'}
+                      label={'Next'}
+                      alignSelf={'center'}
+                    />
+                  </Box>
+                </Box>
+              )}
+            </Form>
           </Box>
-        </Form>
-      </Box>
+        )}
+      </ResponsiveContext.Consumer>
     </Grommet>
   );
 };

@@ -1,11 +1,12 @@
 import React from 'react';
-import { Box, Grommet, Text } from 'grommet';
+import { Box, Grommet, ResponsiveContext, Text } from 'grommet';
 import { useHistory } from 'react-router-dom';
+import { formTheme } from '../../themes';
 
 const Home = (): JSX.Element => {
   const history = useHistory();
   return (
-    <Grommet background={{ color: 'brand' }} full>
+    <Grommet theme={formTheme} full>
       <Box
         fill
         pad={'medium'}
@@ -14,18 +15,68 @@ const Home = (): JSX.Element => {
         responsive={true}
         background={{ color: 'light-6' }}
       >
-        <Box
-          width={'large'}
-          height={'medium'}
-          round={'medium'}
-          align={'center'}
-          justify={'center'}
-          background={'brand'}
-          responsive={true}
-          onClick={() => history.push('/registration')}
-        >
-          <Text size={'xxlarge'}>Register</Text>
-        </Box>
+        <ResponsiveContext.Consumer>
+          {(size) => (
+            <>
+              {size == 'small' && (
+                <Box
+                  width={'small'}
+                  height={'xsmall'}
+                  round={'medium'}
+                  align={'center'}
+                  justify={'center'}
+                  background={{ color: '#7161ce' }}
+                  responsive={true}
+                  onClick={() => history.push('/registration')}
+                >
+                  <Text size={'xxlarge'}>Register</Text>
+                </Box>
+              )}
+              {size == 'medium' && (
+                <Box
+                  width={'large'}
+                  height={'small'}
+                  round={'medium'}
+                  align={'center'}
+                  justify={'center'}
+                  background={{ color: '#7161ce' }}
+                  responsive={true}
+                  onClick={() => history.push('/registration')}
+                >
+                  <Text size={'xxlarge'}>Register</Text>
+                </Box>
+              )}
+              {size == 'large' && (
+                <Box
+                  width={'medium'}
+                  height={'small'}
+                  round={'medium'}
+                  align={'center'}
+                  justify={'center'}
+                  background={{ color: '#7161ce' }}
+                  responsive={true}
+                  onClick={() => history.push('/registration')}
+                >
+                  <Text size={'xxlarge'}>Register</Text>
+                </Box>
+              )}
+              {size == 'xlarge' && (
+                <Box
+                  width={'large'}
+                  height={'small'}
+                  round={'medium'}
+                  align={'center'}
+                  justify={'center'}
+                  background={{ color: '#7161ce' }}
+                  responsive={true}
+                  onClick={() => history.push('/registration')}
+                >
+                  <Text size={'xxlarge'}>Register</Text>
+                </Box>
+              )}
+            </>
+          )}
+        </ResponsiveContext.Consumer>
       </Box>
     </Grommet>
   );

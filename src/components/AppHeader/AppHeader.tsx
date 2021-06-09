@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, Header, Box, Grommet, ResponsiveContext } from 'grommet';
 
 import { useHistory } from 'react-router-dom';
+import { formTheme } from '../../themes';
 
 const customBreakpoints = {
   global: {
@@ -74,7 +75,7 @@ const AppHeader = (): JSX.Element => {
   const mohLabel = 'Ministry of Health & Wellness';
 
   return (
-    <Grommet theme={customBreakpoints}>
+    <Grommet theme={formTheme}>
       <ResponsiveContext.Consumer>
         {(size) => (
           <Header background={'brand'} height={'small'} justify={'center'}>
