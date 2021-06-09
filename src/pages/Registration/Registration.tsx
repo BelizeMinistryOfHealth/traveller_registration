@@ -50,6 +50,7 @@ const Registration = (): JSX.Element => {
             gap={'large'}
             align={'center'}
             responsive={true}
+            flex={'grow'}
             background={{ color: 'light-6' }}
           >
             <Form
@@ -65,6 +66,7 @@ const Registration = (): JSX.Element => {
                     pad={'medium'}
                     width={'medium'}
                     round={'medium'}
+                    elevation={'small'}
                     background={{
                       color: 'light-1',
                       opacity: true,

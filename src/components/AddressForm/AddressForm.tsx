@@ -20,8 +20,6 @@ const AddressForm = (): JSX.Element => {
   });
   const [community, setCommunity] = React.useState<Community>();
 
-  console.log({ personalInfo });
-
   React.useEffect(() => {
     const fetchCommunities = async () => {
       try {

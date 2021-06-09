@@ -18,7 +18,7 @@ export const customBreakpoints = {
         edgeSize: {
           none: '0px',
           small: '12px',
-          medium: '24px',
+          medium: '20px',
           large: '48px',
         },
       },
