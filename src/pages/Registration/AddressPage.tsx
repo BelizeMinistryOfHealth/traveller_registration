@@ -41,6 +41,7 @@ const AddressPage = () => {
 
   React.useEffect(() => {
     if (formState.status == 'saving') {
+      if (personalInfo) personalInfo.portOfEntry = arrivalInfo?.portOfEntry;
       const data: {
         personalInfo: PersonalInfo;
         address: Address;
