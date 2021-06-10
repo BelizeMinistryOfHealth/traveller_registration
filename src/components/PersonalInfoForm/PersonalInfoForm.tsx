@@ -41,6 +41,7 @@ const PersonalInfoForm = (): JSX.Element => {
       </FormField>
       <FormField name={'nationality'} label={'Nationality'} required>
         <ReactFlagsSelect
+          searchable={true}
           selected={personalInfo?.nationality ?? ''}
           onSelect={(countryCode: string) => {
             setPersonalInfo?.({ ...personalInfo, nationality: countryCode });

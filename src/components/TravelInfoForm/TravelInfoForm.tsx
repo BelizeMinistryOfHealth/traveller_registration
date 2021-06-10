@@ -50,6 +50,7 @@ const TravelInfoForm = (): JSX.Element => {
         required
       >
         <ReactFlagsSelect
+          searchable={true}
           selected={arrivalInfo?.countryOfEmbarkation ?? ''}
           onSelect={(countryCode: string) => {
             setArrivalInfo?.({
