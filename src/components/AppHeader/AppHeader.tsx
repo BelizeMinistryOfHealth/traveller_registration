@@ -78,36 +78,44 @@ const AppHeader = (): JSX.Element => {
     <Grommet theme={formTheme}>
       <ResponsiveContext.Consumer>
         {(size) => (
-          <Header background={'brand'} height={'small'} justify={'center'}>
+          <>
             {size == 'small' && (
-              <Banner
-                titleSize={'large'}
-                subTitleSize={'small'}
-                title={mohLabel}
-              />
+              <Header background={'brand'} height={'xsmall'} justify={'center'}>
+                <Banner
+                  titleSize={'large'}
+                  subTitleSize={'small'}
+                  title={mohLabel}
+                />
+              </Header>
             )}
             {size == 'medium' && (
-              <Banner
-                titleSize={'xxlarge'}
-                subTitleSize={'small'}
-                title={mohLabel}
-              />
+              <Header background={'brand'} height={'small'} justify={'center'}>
+                <Banner
+                  titleSize={'xxlarge'}
+                  subTitleSize={'small'}
+                  title={mohLabel}
+                />
+              </Header>
             )}
             {size == 'large' && (
-              <Banner
-                titleSize={'xlarge'}
-                subTitleSize={'small'}
-                title={mohLabel}
-              />
+              <Header background={'brand'} height={'small'} justify={'center'}>
+                <Banner
+                  titleSize={'xlarge'}
+                  subTitleSize={'small'}
+                  title={mohLabel}
+                />
+              </Header>
             )}
             {size == 'xlarge' && (
-              <Banner
-                titleSize={'xxlarge'}
-                subTitleSize={'medium'}
-                title={mohLabel}
-              />
+              <Header background={'brand'} height={'small'} justify={'center'}>
+                <Banner
+                  titleSize={'xxlarge'}
+                  subTitleSize={'medium'}
+                  title={mohLabel}
+                />
+              </Header>
             )}
-          </Header>
+          </>
         )}
       </ResponsiveContext.Consumer>
     </Grommet>
