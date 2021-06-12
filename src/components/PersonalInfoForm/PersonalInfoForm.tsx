@@ -3,6 +3,7 @@ import {
   DateInput,
   FormField,
   Header,
+  Heading,
   MaskedInput,
   RadioButtonGroup,
   Text,
@@ -15,9 +16,9 @@ const PersonalInfoForm = (): JSX.Element => {
 
   return (
     <>
-      <Header>
+      <Heading>
         <Text size={'xlarge'}>Personal Information</Text>
-      </Header>
+      </Heading>
 
       <FormField
         placeholder={'First Name'}

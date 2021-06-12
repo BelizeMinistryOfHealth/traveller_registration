@@ -20,6 +20,7 @@ const Home = (): JSX.Element => {
             <>
               {size == 'small' && (
                 <Box
+                  role={'button'}
                   width={'small'}
                   height={'xsmall'}
                   round={'medium'}
@@ -34,6 +35,7 @@ const Home = (): JSX.Element => {
               )}
               {size == 'medium' && (
                 <Box
+                  role={'button'}
                   width={'large'}
                   height={'small'}
                   round={'medium'}
@@ -62,6 +64,7 @@ const Home = (): JSX.Element => {
               )}
               {size == 'xlarge' && (
                 <Box
+                  role={'button'}
                   width={'large'}
                   height={'small'}
                   round={'medium'}
