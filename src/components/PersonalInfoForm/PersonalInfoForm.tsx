@@ -7,6 +7,7 @@ import {
   MaskedInput,
   RadioButtonGroup,
   Text,
+  TextInput,
 } from 'grommet';
 import ReactFlagsSelect from 'react-flags-select';
 import { useRegistration } from '../../providers/RegistrationProvider';
@@ -24,24 +25,39 @@ const PersonalInfoForm = (): JSX.Element => {
         placeholder={'First Name'}
         name={'firstName'}
         label={'First Name'}
+        htmlFor={'firstName'}
         required
-      />
+      >
+        <TextInput id={'firstName'} name={'firstName'} />
+      </FormField>
       <FormField
         name={'middleName'}
         label={'Middle Name'}
         placeholder={'Middle Name'}
-      />
+        htmlFor={'middleName'}
+      >
+        <TextInput id={'middleName'} name={'middleName'} />
+      </FormField>
       <FormField
         name={'lastName'}
         label={'Last Name'}
         required={true}
         placeholder={'Last Name'}
-      />
-      <FormField name={'dob'} label={'Date of Birth'} required>
-        <DateInput name={'dob'} format={'yyyy-mm-dd'} />
+        htmlFor={'lastName'}
+      >
+        <TextInput id={'lastName'} name={'lastName'} />
       </FormField>
-      <FormField name={'nationality'} label={'Nationality'} required>
+      <FormField name={'dob'} label={'Date of Birth'} htmlFor={'dob'} required>
+        <DateInput name={'dob'} format={'yyyy-mm-dd'} id={'dob'} />
+      </FormField>
+      <FormField
+        name={'nationality'}
+        label={'Nationality'}
+        htmlFor={'nationality'}
+        required
+      >
         <ReactFlagsSelect
+          id={'nationality'}
           searchable={true}
           selected={personalInfo?.nationality ?? ''}
           onSelect={(countryCode: string) => {
@@ -49,9 +65,10 @@ const PersonalInfoForm = (): JSX.Element => {
           }}
         />
       </FormField>
-      <FormField name={'gender'} label={'Gender'} required>
+      <FormField name={'gender'} label={'Gender'} htmlFor={'gender'} required>
         <RadioButtonGroup
           name={'gender'}
+          id={'gender'}
           options={['Male', 'Female']}
           direction={'row'}
         />
@@ -60,20 +77,29 @@ const PersonalInfoForm = (): JSX.Element => {
         name={'passportNumber'}
         label={'Passport Number'}
         placeholder={'Passport Number'}
+        htmlFor={'passportNumber'}
         required
-      />
+      >
+        <TextInput id={'passportNumber'} name={'passportNumber'} />
+      </FormField>
       <FormField
         name={'phoneNumbers'}
         label={'Phone Numbers'}
         placeholder={'Phone Numbers'}
+        htmlFor={'phoneNumbers'}
         required
-      />
+      >
+        <TextInput name={'phoneNumbers'} id={'phoneNumbers'} />
+      </FormField>
       <FormField
         name={'occupation'}
         label={'Occupation'}
         placeholder={'Occupation'}
+        htmlFor={'occupation'}
         required
-      />
+      >
+        <TextInput name={'occupation'} id={'occupation'} />
+      </FormField>
       <FormField label={'Email'} name={'email'} required>
         <MaskedInput
           name='email'
