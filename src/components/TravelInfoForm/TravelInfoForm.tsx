@@ -1,5 +1,5 @@
 import React from 'react';
-import { DateInput, FormField, Header, RadioButtonGroup, Text } from 'grommet';
+import { DateInput, FormField, Heading, RadioButtonGroup, Text } from 'grommet';
 import ReactFlagsSelect from 'react-flags-select';
 import { ports } from '../../models/models';
 import { useRegistration } from '../../providers/RegistrationProvider';
@@ -8,11 +8,11 @@ const TravelInfoForm = (): JSX.Element => {
   const { personalInfo, arrivalInfo, setArrivalInfo } = useRegistration();
   return (
     <>
-      <Header>
+      <Heading>
         <Text size={'xlarge'}>
           Travel Information | {personalInfo?.fullName}
         </Text>
-      </Header>
+      </Heading>
       <FormField
         placeholder={'Port of Arrival'}
         name={'portOfEntry'}

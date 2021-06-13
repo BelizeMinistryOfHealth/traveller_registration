@@ -2,7 +2,6 @@ import React from 'react';
 import {
   DateInput,
   FormField,
-  Header,
   Heading,
   MaskedInput,
   RadioButtonGroup,
@@ -100,8 +99,9 @@ const PersonalInfoForm = (): JSX.Element => {
       >
         <TextInput name={'occupation'} id={'occupation'} />
       </FormField>
-      <FormField label={'Email'} name={'email'} required>
+      <FormField label={'Email'} name={'email'} htmlFor={'email'} required>
         <MaskedInput
+          id={'email'}
           name='email'
           mask={[
             { regexp: /^[\w\-_.]+$/, placeholder: 'your' },
