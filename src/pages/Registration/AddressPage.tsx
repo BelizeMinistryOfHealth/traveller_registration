@@ -21,7 +21,7 @@ interface FormState {
   status: 'saving' | 'success' | 'failure' | 'entry';
 }
 
-const AddressPage = () => {
+const AddressPage = (): JSX.Element => {
   const {
     personalInfo,
     address,
@@ -35,7 +35,7 @@ const AddressPage = () => {
   });
   const history = useHistory();
 
-  const submit = (e: { value: any }) => {
+  const submit = () => {
     setFormState({ status: 'saving' });
   };
 
@@ -81,7 +81,7 @@ const AddressPage = () => {
               setFormState({ status: 'failure' });
             }
           })
-          .catch((_) => setFormState({ status: 'failure' }));
+          .catch(() => setFormState({ status: 'failure' }));
       } else {
         console.error('the API URL could not be found');
         setFormState({ status: 'failure' });
@@ -256,7 +256,7 @@ const AddressPage = () => {
             <Form
               value={address}
               onChange={setAddress}
-              onSubmit={(e) => submit(e)}
+              onSubmit={() => submit()}
             >
               {size == 'small' && (
                 <Box pad={'medium'} gap={'large'}>
