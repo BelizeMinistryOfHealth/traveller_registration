@@ -27,7 +27,6 @@ const AddressForm = (): JSX.Element => {
           method: 'GET',
           url: `https://us-east1-epi-belize.cloudfunctions.net/Locations?district=${communities.district}`,
         });
-        console.dir({ response });
         setCommunities({
           ...communities,
           status: 'success',

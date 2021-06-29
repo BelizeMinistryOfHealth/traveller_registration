@@ -103,39 +103,111 @@ const AddressPage = () => {
   if (formState.status == 'success') {
     return (
       <FormContainer>
-        <Box pad={'medium'} gap={'large'}>
-          <Box
-            gridArea={'pInfo'}
-            gap={'xxsmall'}
-            pad={'small'}
-            width={'large'}
-            round={'medium'}
-            elevation={'small'}
-            justify={'center'}
-            align={'center'}
-            background={{
-              color: 'light-1',
-              opacity: true,
-            }}
-          >
-            <Heading>Congratulations</Heading>
-            <Heading level={'3'}>
-              Thank you for filling the application!
-            </Heading>
-            <Box
-              width={'medium'}
-              height={'xsmall'}
-              round={'medium'}
-              align={'center'}
-              justify={'center'}
-              background={'brand'}
-              responsive={true}
-              onClick={() => history.push('/registration')}
-            >
-              <Text size={'large'}>Register Another Visitor?</Text>
+        <ResponsiveContext.Consumer>
+          {(size) => (
+            <Box pad={'medium'} gap={'large'}>
+              {size == 'small' && (
+                <Box
+                  gap={'large'}
+                  pad={'medium'}
+                  width={'medium'}
+                  round={'medium'}
+                  elevation={'small'}
+                  justify={'center'}
+                  align={'center'}
+                  background={{
+                    color: 'light-1',
+                    opacity: true,
+                  }}
+                >
+                  <Heading>Congratulations</Heading>
+                  <Heading level={'3'}>
+                    Thank you for filling the application!
+                  </Heading>
+                  <Box
+                    width={'medium'}
+                    height={'xsmall'}
+                    round={'medium'}
+                    align={'center'}
+                    justify={'center'}
+                    background={'brand'}
+                    responsive={true}
+                    onClick={() => history.push('/registration')}
+                  >
+                    <Text size={'large'}>Register Another Visitor?</Text>
+                  </Box>
+                </Box>
+              )}
+              {size == 'medium' && (
+                <Box
+                  gap={'large'}
+                  pad={'medium'}
+                  width={'medium'}
+                  round={'medium'}
+                  elevation={'small'}
+                  justify={'center'}
+                  align={'center'}
+                  background={{
+                    color: 'light-1',
+                    opacity: true,
+                  }}
+                >
+                  <Heading>Congratulations</Heading>
+                  <Heading level={'3'}>
+                    Thank you for filling the application!
+                  </Heading>
+                  <Box
+                    width={'medium'}
+                    height={'xsmall'}
+                    round={'medium'}
+                    align={'center'}
+                    justify={'center'}
+                    background={'brand'}
+                    responsive={true}
+                    onClick={() => history.push('/registration')}
+                  >
+                    <Text size={'large'}>Register Another Visitor?</Text>
+                  </Box>
+                </Box>
+              )}
+
+              {size == 'large' ||
+                (size == 'xlarge' && (
+                  <Box
+                    gridArea={'pInfo'}
+                    gap={'large'}
+                    pad={'medium'}
+                    width={'large'}
+                    round={'medium'}
+                    elevation={'small'}
+                    justify={'center'}
+                    align={'center'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <Heading>Congratulations</Heading>
+                    <Heading level={'3'}>
+                      Thank you for filling the application!
+                    </Heading>
+                    <Box
+                      width={'medium'}
+                      height={'xsmall'}
+                      round={'medium'}
+                      align={'center'}
+                      justify={'center'}
+                      background={'brand'}
+                      responsive={true}
+                      onClick={() => history.push('/registration')}
+                    >
+                      <Text size={'large'}>Register Another Visitor?</Text>
+                    </Box>
+                  </Box>
+                ))}
             </Box>
-          </Box>
-        </Box>
+          )}
+        </ResponsiveContext.Consumer>
       </FormContainer>
     );
   }

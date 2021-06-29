@@ -4,6 +4,7 @@ import Home from './pages/Home/Home';
 import Registration from './pages/Registration/Registration';
 import TravelInfoPage from './pages/Registration/TravelInfoPage';
 import AddressPage from './pages/Registration/AddressPage';
+import Summary from './pages/Registration/Summary';
 
 const Routes = (): JSX.Element => {
   return (
@@ -12,6 +13,7 @@ const Routes = (): JSX.Element => {
       <Route exact={true} path={'/registration'} component={Registration} />
       <Route exact={true} path={'/travelInfo'} component={TravelInfoPage} />
       <Route exact={true} path={'/address'} component={AddressPage} />
+      <Route exact={true} path={'/summary'} component={Summary} />
     </Switch>
   );
 };
