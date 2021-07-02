@@ -1,17 +1,25 @@
 import React from 'react';
 import FormContainer from '../../components/FormContainer/FormContainer';
 import { Box, Heading, Text } from 'grommet';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 interface FormState {
   status: 'saving' | 'success' | 'failure' | 'entry';
 }
 
 const Summary = (): JSX.Element => {
-  const history = useHistory();
+  const [next, setNext] = React.useState<string>('');
   const [formState, setFormState] = React.useState<FormState>({
     status: 'entry',
   });
+
+  if (next === 'companion') {
+    return <Redirect to={'/companion'} />;
+  }
+
+  if (next === 'registration') {
+    return <Redirect to={'/registration'} />;
+  }
 
   return (
     <FormContainer>
@@ -40,7 +48,7 @@ const Summary = (): JSX.Element => {
             justify={'center'}
             background={'brand'}
             responsive={true}
-            onClick={() => history.push('/registration')}
+            onClick={() => setNext('/registration')}
           >
             <Text size={'large'}>Submit Registration</Text>
           </Box>
@@ -55,7 +63,8 @@ const Summary = (): JSX.Element => {
             responsive={true}
             margin={'large'}
             gap={'medium'}
-            onClick={() => history.push('/registration')}
+            role={'register'}
+            onClick={() => setNext('companion')}
           >
             <Text size={'large'} color={'white'}>
               Register Another Visitor

@@ -17,11 +17,14 @@ const PersonalInfoForm = (): JSX.Element => {
   return (
     <>
       <Heading>
-        <Text size={'xlarge'}>Personal Information</Text>
+        <Text size={'xlarge'} role={'form-heading'}>
+          Personal Information
+        </Text>
       </Heading>
 
       <FormField
         placeholder={'First Name'}
+        role={'firstName'}
         name={'firstName'}
         label={'First Name'}
         htmlFor={'firstName'}
@@ -31,6 +34,7 @@ const PersonalInfoForm = (): JSX.Element => {
       </FormField>
       <FormField
         name={'middleName'}
+        role={'middleName'}
         label={'Middle Name'}
         placeholder={'Middle Name'}
         htmlFor={'middleName'}
@@ -38,6 +42,7 @@ const PersonalInfoForm = (): JSX.Element => {
         <TextInput id={'middleName'} name={'middleName'} />
       </FormField>
       <FormField
+        role={'lastName'}
         name={'lastName'}
         label={'Last Name'}
         required={true}
@@ -47,7 +52,7 @@ const PersonalInfoForm = (): JSX.Element => {
         <TextInput id={'lastName'} name={'lastName'} />
       </FormField>
       <FormField name={'dob'} label={'Date of Birth'} htmlFor={'dob'} required>
-        <DateInput name={'dob'} format={'yyyy-mm-dd'} id={'dob'} />
+        <DateInput name={'dob'} format={'yyyy-mm-dd'} id={'dob'} role={'dob'} />
       </FormField>
       <FormField
         name={'nationality'}
@@ -73,6 +78,7 @@ const PersonalInfoForm = (): JSX.Element => {
         />
       </FormField>
       <FormField
+        role={'passport'}
         name={'passportNumber'}
         label={'Passport Number'}
         placeholder={'Passport Number'}
@@ -83,6 +89,7 @@ const PersonalInfoForm = (): JSX.Element => {
       </FormField>
       <FormField
         name={'phoneNumbers'}
+        role={'phone'}
         label={'Phone Numbers'}
         placeholder={'Phone Numbers'}
         htmlFor={'phoneNumbers'}
@@ -91,6 +98,7 @@ const PersonalInfoForm = (): JSX.Element => {
         <TextInput name={'phoneNumbers'} id={'phoneNumbers'} />
       </FormField>
       <FormField
+        role={'occupation'}
         name={'occupation'}
         label={'Occupation'}
         placeholder={'Occupation'}
@@ -99,7 +107,13 @@ const PersonalInfoForm = (): JSX.Element => {
       >
         <TextInput name={'occupation'} id={'occupation'} />
       </FormField>
-      <FormField label={'Email'} name={'email'} htmlFor={'email'} required>
+      <FormField
+        label={'Email'}
+        name={'email'}
+        htmlFor={'email'}
+        role={'email'}
+        required
+      >
         <MaskedInput
           id={'email'}
           name='email'
