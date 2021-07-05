@@ -5,7 +5,7 @@ import { useRegistration } from '../../providers/RegistrationProvider';
 import TravelInfoForm from '../../components/TravelInfoForm/TravelInfoForm';
 import { useHistory } from 'react-router-dom';
 
-const TravelInfoPage = () => {
+const TravelInfoPage = (): JSX.Element => {
   const { personalInfo, arrivalInfo, setArrivalInfo } = useRegistration();
   const history = useHistory();
 
@@ -36,7 +36,7 @@ const TravelInfoPage = () => {
             <Form
               value={arrivalInfo}
               onChange={setArrivalInfo}
-              onSubmit={(_) => submit()}
+              onSubmit={() => submit()}
             >
               {size == 'small' && (
                 <Box pad={'medium'} gap={'large'}>

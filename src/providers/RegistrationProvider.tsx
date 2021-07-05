@@ -17,7 +17,8 @@ export interface RegistrationData {
 
 export const RegistrationContext = React.createContext<RegistrationData>({});
 
-export const useRegistration = () => React.useContext(RegistrationContext);
+export const useRegistration = (): RegistrationData =>
+  React.useContext(RegistrationContext);
 
 export type RegistrationProviderProps = {
   children: React.ReactNode;
@@ -29,7 +30,9 @@ export type RegistrationProviderProps = {
  * @param props
  * @constructor
  */
-export const RegistrationProvider = (props: RegistrationProviderProps) => {
+export const RegistrationProvider = (
+  props: RegistrationProviderProps
+): JSX.Element => {
   const [personalInfo, setPersonalInfo] = React.useState<PersonalInfo>({});
   const [arrivalInfo, setArrivalInfo] = React.useState<TravelInfo>({});
   const [address, setAddress] = React.useState<RawAddress>({});

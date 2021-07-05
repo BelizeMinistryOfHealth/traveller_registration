@@ -6,7 +6,7 @@ export type FormContainerProps = {
   children: React.ReactNode;
 };
 
-const FormContainer = (props: FormContainerProps) => {
+const FormContainer = (props: FormContainerProps): JSX.Element => {
   const { children } = props;
   return (
     <Grommet theme={formTheme} background={{ color: 'light-6' }} full>

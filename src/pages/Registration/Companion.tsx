@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Box,
-  Button,
-  Form,
-  FormExtendedEvent,
-  Grommet,
-  ResponsiveContext,
-} from 'grommet';
+import { Box, Button, Form, Grommet, ResponsiveContext } from 'grommet';
 import { formTheme } from '../../themes';
 import { generateId, PersonalInfo } from '../../models/models';
 import { format, parseISO } from 'date-fns';
@@ -26,9 +19,7 @@ const Companion = (): JSX.Element => {
     status: 'entry',
   });
 
-  const submit = (e: FormExtendedEvent<PersonalInfo>) => {
-    console.log('submitting....\n\n\n\n');
-    console.dir({ personalInfo });
+  const submit = () => {
     if (personalInfo.dob) {
       setPersonalInfo?.({
         ...personalInfo,
@@ -72,7 +63,7 @@ const Companion = (): JSX.Element => {
             flex={'grow'}
             background={{ color: 'light-6' }}
           >
-            <Form onSubmit={(e) => submit(e)}>
+            <Form onSubmit={() => submit()}>
               {size == 'small' && (
                 <Box pad={'medium'} gap={'large'}>
                   <Box

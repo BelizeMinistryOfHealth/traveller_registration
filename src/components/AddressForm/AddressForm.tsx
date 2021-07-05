@@ -9,7 +9,7 @@ interface Communities {
   district?: string;
   status: 'loading' | 'success' | 'failure' | 'clean';
   communities: Community[];
-  error?: any;
+  error?: Error;
 }
 
 const AddressForm = (): JSX.Element => {

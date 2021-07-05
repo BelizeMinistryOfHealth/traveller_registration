@@ -25,7 +25,6 @@ describe('Summary Tests', () => {
     userEvent.click(registerBtn);
     const heading = getByRole(/form-heading/i);
     expect(heading).toHaveTextContent(/personal information/i);
-    const fname = getByRole(/firstName/i);
-    expect(fname).toHaveTextContent(/first name/i);
+    getByRole(/firstName/i);
   });
 });
