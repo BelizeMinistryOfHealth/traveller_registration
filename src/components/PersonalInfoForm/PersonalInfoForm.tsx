@@ -51,8 +51,14 @@ const PersonalInfoForm = (): JSX.Element => {
       >
         <TextInput id={'lastName'} name={'lastName'} />
       </FormField>
-      <FormField name={'dob'} label={'Date of Birth'} htmlFor={'dob'} required>
-        <DateInput name={'dob'} format={'yyyy-mm-dd'} id={'dob'} role={'dob'} />
+      <FormField
+        name={'dob'}
+        label={'Date of Birth'}
+        htmlFor={'dob'}
+        role={'dob'}
+        required
+      >
+        <DateInput name={'dob'} format={'yyyy-mm-dd'} id={'dob'} />
       </FormField>
       <FormField
         name={'nationality'}

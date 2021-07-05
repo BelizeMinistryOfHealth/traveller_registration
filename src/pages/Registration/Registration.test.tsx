@@ -58,7 +58,6 @@ describe('Personal Info Form', () => {
 
       const email = screen.getByLabelText('Email');
       userEvent.type(email, 'email@mail.com');
-
       const nextButton = screen.getByRole('button', { name: /next/i });
       userEvent.click(nextButton);
       const heading = screen.getByRole('heading', {

@@ -71,6 +71,7 @@ const Summary = (): JSX.Element => {
             </Text>
           </Box>
         </Box>
+        <Box role={'companions'}></Box>
       </Box>
     </FormContainer>
   );

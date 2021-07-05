@@ -1,32 +1,21 @@
 import React from 'react';
 import PersonalInfoForm from '../../components/PersonalInfoForm/PersonalInfoForm';
 import { Box, Form, Button, Grommet, ResponsiveContext } from 'grommet';
-import { PersonalInfo } from '../../models/models';
+import { generateId, PersonalInfo } from '../../models/models';
 import { format, parseISO } from 'date-fns';
 import { useRegistration } from '../../providers/RegistrationProvider';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { formTheme } from '../../themes';
 
-const generateId = (formData: PersonalInfo): string => {
-  let fname = formData.firstName;
-  if (fname && fname?.length > 3) {
-    fname = fname?.substring(0, 3);
-  }
-  let lname = formData.lastName;
-  if (lname && lname?.length > 3) {
-    lname = lname?.substring(0, 3);
-  }
-
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const arrivalDate = format(new Date(), 'yyyy-MM-dd');
-
-  return `${arrivalDate}#${fname}-${lname}#${formData.passportNumber}`;
-};
+interface FormState {
+  status: 'saving' | 'success' | 'failure' | 'entry';
+}
 
 const Registration = (): JSX.Element => {
   const { personalInfo, setPersonalInfo } = useRegistration();
-  const history = useHistory();
+  const [formState, setFormState] = React.useState<FormState>({
+    status: 'entry',
+  });
 
   const submit = () => {
     setPersonalInfo?.({
@@ -37,8 +26,12 @@ const Registration = (): JSX.Element => {
       }`.trim(),
       dob: format(parseISO(personalInfo?.dob as string), 'yyyy-MM-dd'),
     });
-    history.push('/travelInfo');
+    setFormState({ status: 'success' });
   };
+
+  if (formState.status === 'success') {
+    return <Redirect to={'/travelInfo'} />;
+  }
 
   return (
     <Grommet theme={formTheme} background={{ color: 'light-6' }}>

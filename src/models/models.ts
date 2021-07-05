@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 export const ports = [
   'Northern Border',
   'Western Border',
@@ -90,3 +92,20 @@ export type RegistrationState = PersonalInfo &
   TravelInfo &
   AddressFormData &
   AddressCommunity;
+
+export const generateId = (formData: PersonalInfo): string => {
+  let fname = formData.firstName;
+  if (fname && fname?.length > 3) {
+    fname = fname?.substring(0, 3);
+  }
+  let lname = formData.lastName;
+  if (lname && lname?.length > 3) {
+    lname = lname?.substring(0, 3);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const arrivalDate = format(new Date(), 'yyyy-MM-dd');
+
+  return `${arrivalDate}#${fname}-${lname}#${formData.passportNumber}`;
+};

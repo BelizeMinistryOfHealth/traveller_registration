@@ -1,11 +1,64 @@
 import React from 'react';
-import { Box, Button, Form, Grommet, ResponsiveContext } from 'grommet';
+import {
+  Box,
+  Button,
+  Form,
+  FormExtendedEvent,
+  Grommet,
+  ResponsiveContext,
+} from 'grommet';
 import { formTheme } from '../../themes';
-import { PersonalInfo } from '../../models/models';
-import PersonalInfoForm from '../../components/PersonalInfoForm/PersonalInfoForm';
+import { generateId, PersonalInfo } from '../../models/models';
+import { format, parseISO } from 'date-fns';
+import { useRegistration } from '../../providers/RegistrationProvider';
+import { Redirect } from 'react-router-dom';
+import Spinner from '../../components/Spinner/Spinner';
+import CompanionInfoForm from '../../components/CompanionInfoForm';
+
+interface FormState {
+  status: 'saving' | 'success' | 'failure' | 'entry';
+}
 
 const Companion = (): JSX.Element => {
+  const { companions, setCompanions } = useRegistration();
   const [personalInfo, setPersonalInfo] = React.useState<PersonalInfo>({});
+  const [formState, setFormState] = React.useState<FormState>({
+    status: 'entry',
+  });
+
+  const submit = (e: FormExtendedEvent<PersonalInfo>) => {
+    console.log('submitting....\n\n\n\n');
+    console.dir({ personalInfo });
+    if (personalInfo.dob) {
+      setPersonalInfo?.({
+        ...personalInfo,
+        id: generateId(personalInfo as PersonalInfo),
+        fullName: `${personalInfo?.firstName} ${
+          personalInfo?.middleName ?? ''
+        } ${personalInfo?.lastName}`.trim(),
+        dob: format(parseISO(personalInfo?.dob as string), 'yyyy-MM-dd'),
+      });
+      setFormState({ status: 'saving' });
+    }
+  };
+
+  React.useEffect(() => {
+    if (formState.status === 'saving') {
+      // do something here
+      const currentCompanions = companions ?? [];
+      currentCompanions.push(personalInfo);
+      setCompanions?.(currentCompanions);
+      setFormState({ status: 'success' });
+    }
+  }, [formState, personalInfo]);
+  if (formState.status === 'success') {
+    return <Redirect to={'/summary'} />;
+  }
+
+  if (formState.status === 'saving') {
+    return <Spinner size={400} />;
+  }
+
   return (
     <Grommet theme={formTheme} background={{ color: 'light-6' }}>
       <ResponsiveContext.Consumer>
@@ -19,20 +72,62 @@ const Companion = (): JSX.Element => {
             flex={'grow'}
             background={{ color: 'light-6' }}
           >
-            <Form value={personalInfo} onChange={setPersonalInfo}>
-              <Box pad={'medium'} gap={'large'}>
-                <Box
-                  gap={'large'}
-                  pad={'medium'}
-                  width={'medium'}
-                  round={'medium'}
-                  elevation={'small'}
-                  background={{
-                    color: 'light-1',
-                    opacity: true,
-                  }}
-                >
-                  <PersonalInfoForm />
+            <Form onSubmit={(e) => submit(e)}>
+              {size == 'small' && (
+                <Box pad={'medium'} gap={'large'}>
+                  <Box
+                    gap={'large'}
+                    pad={'medium'}
+                    width={'medium'}
+                    round={'medium'}
+                    elevation={'small'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    {size}
+                    <CompanionInfoForm
+                      companionInfo={personalInfo}
+                      setCompanionInfo={setPersonalInfo}
+                    />
+                    <Box
+                      align={'center'}
+                      pad={'large'}
+                      round={'medium'}
+                      background={{
+                        color: 'light-1',
+                        opacity: true,
+                      }}
+                    >
+                      <Button
+                        size={'large'}
+                        type={'submit'}
+                        label={'Next'}
+                        alignSelf={'center'}
+                      />
+                    </Box>
+                  </Box>
+                </Box>
+              )}
+              {size == 'medium' && (
+                <Box pad={'medium'} gap={'large'}>
+                  <Box
+                    gridArea={'pInfo'}
+                    gap={'large'}
+                    pad={'medium'}
+                    width={'medium'}
+                    round={'medium'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <CompanionInfoForm
+                      companionInfo={personalInfo}
+                      setCompanionInfo={setPersonalInfo}
+                    />
+                  </Box>
                   <Box
                     align={'center'}
                     pad={'large'}
@@ -50,7 +145,81 @@ const Companion = (): JSX.Element => {
                     />
                   </Box>
                 </Box>
-              </Box>
+              )}
+              {size == 'large' && (
+                <Box pad={'medium'} gap={'large'}>
+                  <Box
+                    gridArea={'pInfo'}
+                    gap={'large'}
+                    pad={'medium'}
+                    width={'large'}
+                    round={'medium'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <CompanionInfoForm
+                      companionInfo={personalInfo}
+                      setCompanionInfo={setPersonalInfo}
+                    />
+                  </Box>
+
+                  <Box
+                    align={'center'}
+                    pad={'large'}
+                    round={'medium'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <Button
+                      size={'large'}
+                      type={'submit'}
+                      label={'Next'}
+                      alignSelf={'center'}
+                    />
+                  </Box>
+                </Box>
+              )}
+              {size == 'xlarge' && (
+                <Box pad={'medium'} gap={'large'}>
+                  <Box
+                    gridArea={'pInfo'}
+                    gap={'large'}
+                    pad={'medium'}
+                    width={'large'}
+                    round={'medium'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <CompanionInfoForm
+                      companionInfo={personalInfo}
+                      setCompanionInfo={setPersonalInfo}
+                    />
+                  </Box>
+
+                  <Box
+                    align={'center'}
+                    pad={'large'}
+                    round={'medium'}
+                    background={{
+                      color: 'light-1',
+                      opacity: true,
+                    }}
+                  >
+                    <Button
+                      size={'large'}
+                      type={'submit'}
+                      label={'Next'}
+                      alignSelf={'center'}
+                    />
+                  </Box>
+                </Box>
+              )}
             </Form>
           </Box>
         )}

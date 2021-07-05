@@ -1,10 +1,5 @@
 import React, { SetStateAction } from 'react';
-import {
-  Address,
-  PersonalInfo,
-  RawAddress,
-  TravelInfo,
-} from '../models/models';
+import { PersonalInfo, RawAddress, TravelInfo } from '../models/models';
 import { FormState } from '../../formState';
 
 export interface RegistrationData {
@@ -16,6 +11,8 @@ export interface RegistrationData {
   setAddress?: React.Dispatch<SetStateAction<RawAddress>>;
   formState?: FormState;
   setFormState?: React.Dispatch<SetStateAction<FormState>>;
+  companions?: PersonalInfo[];
+  setCompanions?: React.Dispatch<SetStateAction<PersonalInfo[]>>;
 }
 
 export const RegistrationContext = React.createContext<RegistrationData>({});
@@ -36,6 +33,7 @@ export const RegistrationProvider = (props: RegistrationProviderProps) => {
   const [personalInfo, setPersonalInfo] = React.useState<PersonalInfo>({});
   const [arrivalInfo, setArrivalInfo] = React.useState<TravelInfo>({});
   const [address, setAddress] = React.useState<RawAddress>({});
+  const [companions, setCompanions] = React.useState<PersonalInfo[]>([]);
   const [formState, setFormState] = React.useState<FormState>({
     currentPage: 'personalInfo',
   });
@@ -51,6 +49,8 @@ export const RegistrationProvider = (props: RegistrationProviderProps) => {
         setAddress,
         formState,
         setFormState,
+        companions,
+        setCompanions,
       }}
     >
       {props.children}
