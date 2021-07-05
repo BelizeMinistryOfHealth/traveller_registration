@@ -28,17 +28,17 @@ function setup() {
   return { result, screen };
 }
 
+jest
+  .spyOn(Date, 'now')
+  .mockImplementationOnce(() => new Date('2021-07-05').valueOf());
+
+afterEach(() => jest.clearAllMocks());
+
 describe('Companion Tests', () => {
   it('saves companion data', () => {
     const { screen } = setup();
-    const {
-      getByRole,
-      getByText,
-      getByLabelText,
-      queryByRole,
-      queryByText,
-      debug,
-    } = screen;
+    const { getByRole, getByText, getByLabelText, queryByRole, queryByText } =
+      screen;
     const heading = getByRole(/form-heading/i);
     expect(heading).toHaveTextContent(/personal information/i);
     const fnameInput = getByRole('firstName');
@@ -72,8 +72,10 @@ describe('Companion Tests', () => {
     const anError = queryByText(/required/i);
     expect(anError).not.toBeInTheDocument();
 
-    debug();
-    const companionsList = getByRole('companions');
-    expect(companionsList).toBeInTheDocument();
+    // The summary page should display the companions list
+    getByRole('companions');
+    getByText('Scooby Furry Doo');
+    getByText(/male/i);
+    getByText(/years old/i);
   });
 });
