@@ -1,17 +1,80 @@
 import React from 'react';
 import FormContainer from '../../components/FormContainer/FormContainer';
-import { Box, Heading, Text } from 'grommet';
+import { Box, Card, CardBody, Heading, Text } from 'grommet';
 import { Redirect } from 'react-router-dom';
+import { useRegistration } from '../../providers/RegistrationProvider';
+import { PersonalInfo } from '../../models/models';
+import differenceInYears from 'date-fns/differenceInYears';
+import parseISO from 'date-fns/parseISO';
 
-interface FormState {
-  status: 'saving' | 'success' | 'failure' | 'entry';
-}
+// interface FormState {
+//   status: 'saving' | 'success' | 'failure' | 'entry';
+// }
+
+const CompanionInfo = (props: {
+  companion: PersonalInfo;
+  key: string;
+}): JSX.Element => {
+  const { companion } = props;
+  const now = new Date();
+  let age = -1;
+  if (companion.dob) {
+    const dob = parseISO(companion.dob);
+    if (dob.getDate() != NaN) {
+      age = differenceInYears(now, dob);
+    }
+  }
+
+  return (
+    <Card
+      background={{
+        color: 'light-1',
+        opacity: true,
+      }}
+      width={'large'}
+      round={'medium'}
+      elevation={'small'}
+    >
+      <CardBody>
+        <Box direction={'column'} gap={'small'} pad={'small'}>
+          <Heading level={4}>{companion.fullName}</Heading>
+          {age > -1 && (
+            <Box direction={'row'} gap={'medium'}>
+              <Text>{age} years old</Text> | <Text>{companion.gender}</Text>
+            </Box>
+          )}
+          {age < 0 && (
+            <Box direction={'row'} gap={'medium'}>
+              <Text>Age is not available</Text> |{' '}
+              <Text>{companion.gender}</Text>
+            </Box>
+          )}
+        </Box>
+      </CardBody>
+    </Card>
+  );
+};
+
+const CompanionsComponent = (props: {
+  companions: PersonalInfo[];
+}): JSX.Element => {
+  const { companions } = props;
+
+  return (
+    <Box gap={'large'}>
+      {companions.map((companion) => (
+        <CompanionInfo
+          companion={companion}
+          key={companion.id ?? 'should-not-be-empty'}
+        />
+      ))}
+    </Box>
+  );
+};
 
 const Summary = (): JSX.Element => {
+  const { companions } = useRegistration();
   const [next, setNext] = React.useState<string>('');
-  const [formState, setFormState] = React.useState<FormState>({
-    status: 'entry',
-  });
 
   if (next === 'companion') {
     return <Redirect to={'/companion'} />;
@@ -23,9 +86,8 @@ const Summary = (): JSX.Element => {
 
   return (
     <FormContainer>
-      <Box pad={'medium'} gap={'large'}>
+      <Box pad={'medium'} gap={'large'} fill>
         <Box
-          gridArea={'pInfo'}
           gap={'xxsmall'}
           pad={'small'}
           width={'large'}
@@ -37,6 +99,7 @@ const Summary = (): JSX.Element => {
             color: 'light-1',
             opacity: true,
           }}
+          fill
         >
           <Heading>Congratulations</Heading>
           <Heading level={'3'}>Thank you for filling the application!</Heading>
@@ -71,7 +134,18 @@ const Summary = (): JSX.Element => {
             </Text>
           </Box>
         </Box>
-        <Box role={'companions'}></Box>
+        <Box
+          justify={'center'}
+          align={'center'}
+          role={'companions'}
+          height={'medium'}
+          wrap
+          responsive
+        >
+          {companions != undefined && (
+            <CompanionsComponent companions={companions} />
+          )}
+        </Box>
       </Box>
     </FormContainer>
   );
