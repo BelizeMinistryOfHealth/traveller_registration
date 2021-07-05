@@ -1,6 +1,14 @@
 import React from 'react';
 import FormContainer from '../../components/FormContainer/FormContainer';
-import { Box, Card, CardBody, Heading, Text } from 'grommet';
+import {
+  Box,
+  Card,
+  CardBody,
+  DataTable,
+  Heading,
+  ResponsiveContext,
+  Text,
+} from 'grommet';
 import { Redirect } from 'react-router-dom';
 import { useRegistration } from '../../providers/RegistrationProvider';
 import { PersonalInfo } from '../../models/models';
@@ -59,16 +67,65 @@ const CompanionsComponent = (props: {
   companions: PersonalInfo[];
 }): JSX.Element => {
   const { companions } = props;
+  const groupColumns = [
+    { property: 'name', header: <Text>Name</Text>, primary: true },
+    { property: 'age', header: <Text>Age</Text> },
+    { property: 'gender', header: <Text>Gender</Text> },
+  ];
+  const tableData = companions.map((companion) => {
+    const now = new Date();
+    let age = -1;
+    if (companion.dob) {
+      const dob = parseISO(companion.dob);
+      if (dob.getDate() != NaN) {
+        age = differenceInYears(now, dob);
+      }
+    }
+    return { name: companion.fullName, gender: companion.gender, age: age };
+  });
 
   return (
-    <Box gap={'large'}>
-      {companions.map((companion) => (
-        <CompanionInfo
-          companion={companion}
-          key={companion.id ?? 'should-not-be-empty'}
-        />
-      ))}
-    </Box>
+    <ResponsiveContext.Consumer>
+      {(size) => (
+        <Box gap={'large'}>
+          {(size == 'small' || size == 'medium') && (
+            <>
+              {companions.map((companion) => (
+                <CompanionInfo
+                  companion={companion}
+                  key={companion.id ?? 'should-not-be-empty'}
+                />
+              ))}
+            </>
+          )}
+          {(size == 'large' || size == 'xlarge') && (
+            <Box
+              background={{
+                color: 'light-1',
+                opacity: true,
+              }}
+              round={'medium'}
+              elevation={'small'}
+              pad={'medium'}
+              align={'center'}
+              fill
+            >
+              <Heading level={4}>Companions</Heading>
+              <DataTable
+                columns={groupColumns}
+                data={tableData}
+                pad={{ horizontal: 'small', vertical: 'xsmall' }}
+                background={{
+                  header: { color: 'dark-3', opacity: 'strong' },
+                  body: ['light-1', 'light-3'],
+                }}
+                border={{ body: 'bottom' }}
+              />
+            </Box>
+          )}
+        </Box>
+      )}
+    </ResponsiveContext.Consumer>
   );
 };
 
