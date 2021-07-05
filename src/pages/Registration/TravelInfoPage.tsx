@@ -3,22 +3,26 @@ import { Box, Grommet, Form, Button, ResponsiveContext } from 'grommet';
 import { formTheme } from '../../themes';
 import { useRegistration } from '../../providers/RegistrationProvider';
 import TravelInfoForm from '../../components/TravelInfoForm/TravelInfoForm';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
+import { FormState } from '../../models/models';
 
 const TravelInfoPage = (): JSX.Element => {
   const { personalInfo, arrivalInfo, setArrivalInfo } = useRegistration();
   const history = useHistory();
+  const [formState, setFormState] = React.useState<FormState>({
+    status: 'entry',
+  });
 
   const submit = () => {
     setArrivalInfo?.({
       ...arrivalInfo,
       id: personalInfo?.id,
     });
-    history.push('/address');
+    setFormState({ status: 'success' });
   };
 
-  if (!personalInfo?.id) {
-    history.push('/registration');
+  if (formState.status === 'success') {
+    return <Redirect to={'/address'} />;
   }
 
   return (

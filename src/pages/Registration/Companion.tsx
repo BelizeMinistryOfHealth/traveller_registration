@@ -1,16 +1,12 @@
 import React from 'react';
 import { Box, Button, Form, Grommet, ResponsiveContext } from 'grommet';
 import { formTheme } from '../../themes';
-import { generateId, PersonalInfo } from '../../models/models';
+import { generateId, PersonalInfo, FormState } from '../../models/models';
 import { format, parseISO } from 'date-fns';
 import { useRegistration } from '../../providers/RegistrationProvider';
 import { Redirect } from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner';
 import CompanionInfoForm from '../../components/CompanionInfoForm';
-
-interface FormState {
-  status: 'saving' | 'success' | 'failure' | 'entry';
-}
 
 const Companion = (): JSX.Element => {
   const { companions, setCompanions } = useRegistration();

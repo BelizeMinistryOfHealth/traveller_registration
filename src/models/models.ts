@@ -109,3 +109,7 @@ export const generateId = (formData: PersonalInfo): string => {
 
   return `${arrivalDate}#${fname}-${lname}#${formData.passportNumber}`;
 };
+
+export interface FormState {
+  status: 'saving' | 'success' | 'failure' | 'entry';
+}

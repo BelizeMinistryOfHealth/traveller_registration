@@ -11,13 +11,16 @@ import {
 } from 'grommet';
 import { Redirect } from 'react-router-dom';
 import { useRegistration } from '../../providers/RegistrationProvider';
-import { PersonalInfo } from '../../models/models';
+import {
+  Address,
+  FormState,
+  PersonalInfo,
+  TravelInfo,
+} from '../../models/models';
 import differenceInYears from 'date-fns/differenceInYears';
 import parseISO from 'date-fns/parseISO';
-
-// interface FormState {
-//   status: 'saving' | 'success' | 'failure' | 'entry';
-// }
+import axios from 'axios';
+import Spinner from '../../components/Spinner/Spinner';
 
 const CompanionInfo = (props: {
   companion: PersonalInfo;
@@ -135,8 +138,71 @@ const CompanionsComponent = (props: {
 };
 
 const Summary = (): JSX.Element => {
-  const { companions } = useRegistration();
+  const {
+    companions,
+    personalInfo,
+    arrivalInfo,
+    address,
+    setAddress,
+    setPersonalInfo,
+    setArrivalInfo,
+  } = useRegistration();
   const [next, setNext] = React.useState<string>('');
+  const [formState, setFormState] = React.useState<FormState>({
+    status: 'entry',
+  });
+
+  React.useEffect(() => {
+    if (formState.status == 'saving') {
+      if (personalInfo) personalInfo.portOfEntry = arrivalInfo?.portOfEntry;
+      const data: {
+        personalInfo: PersonalInfo;
+        address: Address;
+        arrivalInfo: TravelInfo;
+        companions: PersonalInfo[];
+      } = {
+        personalInfo: personalInfo as PersonalInfo,
+        arrivalInfo: arrivalInfo as TravelInfo,
+        address: {
+          id: personalInfo?.id as string,
+          accommodationName: address?.accommodationName ?? '',
+          address: {
+            id: address?.communityId ?? '',
+            address: address?.street ?? '',
+            community: {
+              id: address?.communityId ?? '',
+              name: address?.name ?? '',
+              district: address?.district ?? '',
+            },
+          },
+        },
+        companions: companions ?? [],
+      };
+      const body = JSON.stringify(data);
+      const { REACT_APP_API } = process.env;
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      if (REACT_APP_API) {
+        axios
+          .post(REACT_APP_API, body, {
+            headers: { 'Content-Type': 'application/json' },
+          })
+          .then((r) => {
+            if (r.status == 200) {
+              setAddress?.({});
+              setPersonalInfo?.({});
+              setArrivalInfo?.({});
+              setFormState({ status: 'success' });
+            } else {
+              setFormState({ status: 'failure' });
+            }
+          })
+          .catch(() => setFormState({ status: 'failure' }));
+      } else {
+        console.error('the API URL could not be found');
+        setFormState({ status: 'failure' });
+      }
+    }
+  }, [formState]);
 
   if (next === 'companion') {
     return <Redirect to={'/companion'} />;
@@ -144,6 +210,41 @@ const Summary = (): JSX.Element => {
 
   if (next === 'registration') {
     return <Redirect to={'/registration'} />;
+  }
+
+  // TODO: if success, redirect to final page
+
+  if (formState.status == 'saving') {
+    return (
+      <FormContainer>
+        <Heading>Saving...</Heading>
+        <Spinner size={400} />
+      </FormContainer>
+    );
+  }
+
+  if (formState.status == 'failure') {
+    return (
+      <FormContainer>
+        <Box pad={'medium'} gap={'large'}>
+          <Box
+            gridArea={'pInfo'}
+            gap={'xxsmall'}
+            pad={'small'}
+            width={'large'}
+            round={'medium'}
+            elevation={'small'}
+            background={{
+              color: 'light-1',
+              opacity: true,
+            }}
+          >
+            <Heading>Oooops! An Error Occurred</Heading>
+            <Heading level={'3'}>We Apologize For The Inconvenience!</Heading>
+          </Box>
+        </Box>
+      </FormContainer>
+    );
   }
 
   return (
