@@ -11,11 +11,9 @@ const FormContainer = (props: FormContainerProps): JSX.Element => {
   return (
     <Grommet theme={formTheme} background={{ color: 'light-6' }} full>
       <Box
-        fill
         pad={'medium'}
-        gap={'large'}
+        gap={'medium'}
         align={'center'}
-        responsive={true}
         background={{ color: 'light-6' }}
       >
         {children}

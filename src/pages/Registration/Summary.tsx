@@ -44,7 +44,12 @@ const CompanionInfo = (props: {
       elevation={'small'}
     >
       <CardBody>
-        <Box direction={'column'} gap={'small'} pad={'small'}>
+        <Box
+          direction={'column'}
+          gap={'xxsmall'}
+          pad={'small'}
+          justify={'evenly'}
+        >
           <Heading level={4}>{companion.fullName}</Heading>
           {age > -1 && (
             <Box direction={'row'} gap={'medium'}>
@@ -87,16 +92,16 @@ const CompanionsComponent = (props: {
   return (
     <ResponsiveContext.Consumer>
       {(size) => (
-        <Box gap={'large'}>
+        <Box gap={'large'} pad={'small'}>
           {(size == 'small' || size == 'medium') && (
-            <>
+            <Box gap={'medium'} fill responsive>
               {companions.map((companion) => (
                 <CompanionInfo
                   companion={companion}
                   key={companion.id ?? 'should-not-be-empty'}
                 />
               ))}
-            </>
+            </Box>
           )}
           {(size == 'large' || size == 'xlarge') && (
             <Box
@@ -172,7 +177,6 @@ const Summary = (): JSX.Element => {
           >
             <Text size={'large'}>Submit Registration</Text>
           </Box>
-          <Heading level={'5'}>Or</Heading>
           <Box
             width={'medium'}
             height={'xsmall'}
