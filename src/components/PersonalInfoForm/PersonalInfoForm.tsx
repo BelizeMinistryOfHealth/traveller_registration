@@ -30,7 +30,16 @@ const PersonalInfoForm = (): JSX.Element => {
         htmlFor={'firstName'}
         required
       >
-        <TextInput id={'firstName'} name={'firstName'} />
+        <TextInput
+          id={'firstName'}
+          name={'firstName'}
+          onChange={(e) =>
+            setPersonalInfo?.({
+              ...personalInfo,
+              firstName: e.target.value.trim(),
+            })
+          }
+        />
       </FormField>
       <FormField
         name={'middleName'}
@@ -39,7 +48,16 @@ const PersonalInfoForm = (): JSX.Element => {
         placeholder={'Middle Name'}
         htmlFor={'middleName'}
       >
-        <TextInput id={'middleName'} name={'middleName'} />
+        <TextInput
+          id={'middleName'}
+          name={'middleName'}
+          onChange={(e) =>
+            setPersonalInfo?.({
+              ...personalInfo,
+              middleName: e.target.value.trim(),
+            })
+          }
+        />
       </FormField>
       <FormField
         role={'lastName'}
@@ -49,22 +67,44 @@ const PersonalInfoForm = (): JSX.Element => {
         placeholder={'Last Name'}
         htmlFor={'lastName'}
       >
-        <TextInput id={'lastName'} name={'lastName'} />
+        <TextInput
+          id={'lastName'}
+          name={'lastName'}
+          onChange={(e) =>
+            setPersonalInfo?.({
+              ...personalInfo,
+              lastName: e.target.value.trim(),
+            })
+          }
+        />
       </FormField>
       <FormField
         name={'dob'}
         label={'Date of Birth'}
         htmlFor={'dob'}
         role={'dob'}
-        required
+        error={personalInfo?.dob ? null : 'date of birth is required'}
       >
-        <DateInput name={'dob'} format={'yyyy-mm-dd'} id={'dob'} />
+        <DateInput
+          name={'dob'}
+          format={'yyyy-mm-dd'}
+          id={'dob'}
+          value={personalInfo?.dob}
+          onChange={(e) =>
+            setPersonalInfo?.({ ...personalInfo, dob: e.value as string })
+          }
+        />
       </FormField>
       <FormField
         name={'nationality'}
         label={'Nationality'}
         htmlFor={'nationality'}
-        required
+        error={
+          personalInfo?.nationality != undefined &&
+          (personalInfo?.nationality as unknown as string).length == 2
+            ? null
+            : 'nationality is required'
+        }
       >
         <ReactFlagsSelect
           id={'nationality'}
@@ -75,7 +115,18 @@ const PersonalInfoForm = (): JSX.Element => {
           }}
         />
       </FormField>
-      <FormField name={'gender'} label={'Gender'} htmlFor={'gender'} required>
+      <FormField
+        name={'gender'}
+        label={'Gender'}
+        htmlFor={'gender'}
+        onChange={(e) =>
+          setPersonalInfo?.({
+            ...personalInfo,
+            gender: e.target.value as 'Female' | 'Male',
+          })
+        }
+        required
+      >
         <RadioButtonGroup
           name={'gender'}
           id={'gender'}
@@ -91,7 +142,16 @@ const PersonalInfoForm = (): JSX.Element => {
         htmlFor={'passportNumber'}
         required
       >
-        <TextInput id={'passportNumber'} name={'passportNumber'} />
+        <TextInput
+          id={'passportNumber'}
+          name={'passportNumber'}
+          onChange={(e) =>
+            setPersonalInfo?.({
+              ...personalInfo,
+              passportNumber: e.target.value.trim(),
+            })
+          }
+        />
       </FormField>
       <FormField
         name={'phoneNumbers'}
@@ -101,7 +161,16 @@ const PersonalInfoForm = (): JSX.Element => {
         htmlFor={'phoneNumbers'}
         required
       >
-        <TextInput name={'phoneNumbers'} id={'phoneNumbers'} />
+        <TextInput
+          name={'phoneNumbers'}
+          id={'phoneNumbers'}
+          onChange={(e) =>
+            setPersonalInfo?.({
+              ...personalInfo,
+              phoneNumbers: e.target.value.trim(),
+            })
+          }
+        />
       </FormField>
       <FormField
         role={'occupation'}
@@ -111,13 +180,25 @@ const PersonalInfoForm = (): JSX.Element => {
         htmlFor={'occupation'}
         required
       >
-        <TextInput name={'occupation'} id={'occupation'} />
+        <TextInput
+          name={'occupation'}
+          id={'occupation'}
+          onChange={(e) =>
+            setPersonalInfo?.({
+              ...personalInfo,
+              occupation: e.target.value.trim(),
+            })
+          }
+        />
       </FormField>
       <FormField
         label={'Email'}
         name={'email'}
         htmlFor={'email'}
         role={'email'}
+        onChange={(e) =>
+          setPersonalInfo?.({ ...personalInfo, email: e.target.value.trim() })
+        }
         required
       >
         <MaskedInput

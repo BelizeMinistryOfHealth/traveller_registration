@@ -48,7 +48,7 @@ const Registration = (): JSX.Element => {
           >
             <Form
               value={personalInfo}
-              onChange={setPersonalInfo}
+              // onChange={setPersonalInfo}
               onSubmit={() => submit()}
             >
               {size == 'small' && (

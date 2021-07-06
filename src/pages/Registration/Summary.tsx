@@ -204,6 +204,10 @@ const Summary = (): JSX.Element => {
     }
   }, [formState]);
 
+  if (!personalInfo?.id) {
+    return <Redirect to={'/registration'} />;
+  }
+
   if (next === 'companion') {
     return <Redirect to={'/companion'} />;
   }
@@ -212,13 +216,34 @@ const Summary = (): JSX.Element => {
     return <Redirect to={'/registration'} />;
   }
 
-  // TODO: if success, redirect to final page
-
   if (formState.status == 'saving') {
+    return <Spinner size={400} />;
+  }
+
+  if (formState.status == 'success') {
     return (
       <FormContainer>
-        <Heading>Saving...</Heading>
-        <Spinner size={400} />
+        <Box pad={'medium'} gap={'large'} fill>
+          <Box
+            gap={'xxsmall'}
+            pad={'small'}
+            width={'large'}
+            round={'medium'}
+            elevation={'small'}
+            justify={'center'}
+            align={'center'}
+            background={{
+              color: 'light-1',
+              opacity: true,
+            }}
+            fill
+          >
+            <Heading>Congratulations</Heading>
+            <Heading level={'3'}>
+              Your data has been submitted! Welcome to Belize!
+            </Heading>
+          </Box>
+        </Box>
       </FormContainer>
     );
   }
@@ -274,7 +299,7 @@ const Summary = (): JSX.Element => {
             justify={'center'}
             background={'brand'}
             responsive={true}
-            onClick={() => setNext('/registration')}
+            onClick={() => setFormState({ status: 'saving' })}
           >
             <Text size={'large'}>Submit Registration</Text>
           </Box>
