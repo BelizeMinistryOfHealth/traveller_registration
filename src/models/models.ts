@@ -30,6 +30,14 @@ export interface PersonalInfo {
   portOfEntry?: string;
 }
 
+export type PurposeOfTrip =
+  | 'Tourist'
+  | 'Business'
+  | 'Student'
+  | 'Resident'
+  | 'Diplomat'
+  | 'Official';
+
 export interface TravelInfo {
   id?: string;
   dateOfArrival?: string;
@@ -42,13 +50,7 @@ export interface TravelInfo {
   contactPersonEmail?: string;
   vesselNumber?: string;
   modeOfTravel?: 'air' | 'land' | 'sea';
-  purposeOfTrip?:
-    | 'Tourist'
-    | 'Business'
-    | 'Student'
-    | 'Resident'
-    | 'Diplomat'
-    | 'Official';
+  purposeOfTrip?: PurposeOfTrip;
   portOfEntry?: string;
 }
 

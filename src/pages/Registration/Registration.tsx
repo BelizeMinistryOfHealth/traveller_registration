@@ -46,11 +46,7 @@ const Registration = (): JSX.Element => {
             flex={'grow'}
             background={{ color: 'light-6' }}
           >
-            <Form
-              value={personalInfo}
-              // onChange={setPersonalInfo}
-              onSubmit={() => submit()}
-            >
+            <Form value={personalInfo} onSubmit={() => submit()}>
               {size == 'small' && (
                 <Box pad={'medium'} gap={'large'}>
                   <Box
