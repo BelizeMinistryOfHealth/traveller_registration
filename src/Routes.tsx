@@ -6,6 +6,7 @@ import TravelInfoPage from './pages/Registration/TravelInfoPage';
 import AddressPage from './pages/Registration/AddressPage';
 import Summary from './pages/Registration/Summary';
 import Companion from './pages/Registration/Companion';
+import SuccessPage from './pages/Registration/SuccessPage';
 
 const Routes = (): JSX.Element => {
   return (
@@ -16,6 +17,7 @@ const Routes = (): JSX.Element => {
       <Route exact={true} path={'/address'} component={AddressPage} />
       <Route exact={true} path={'/summary'} component={Summary} />
       <Route exact={true} path={'/companion'} component={Companion} />
+      <Route exact={true} path={'/success'} component={SuccessPage} />
     </Switch>
   );
 };

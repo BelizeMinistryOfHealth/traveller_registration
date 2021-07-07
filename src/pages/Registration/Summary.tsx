@@ -146,6 +146,7 @@ const Summary = (): JSX.Element => {
     setAddress,
     setPersonalInfo,
     setArrivalInfo,
+    setCompanions,
   } = useRegistration();
   const [next, setNext] = React.useState<string>('');
   const [formState, setFormState] = React.useState<FormState>({
@@ -191,6 +192,7 @@ const Summary = (): JSX.Element => {
               setAddress?.({});
               setPersonalInfo?.({});
               setArrivalInfo?.({});
+              setCompanions?.([]);
               setFormState({ status: 'success' });
             } else {
               setFormState({ status: 'failure' });
@@ -204,48 +206,8 @@ const Summary = (): JSX.Element => {
     }
   }, [formState]);
 
-  if (!personalInfo?.id) {
-    return <Redirect to={'/registration'} />;
-  }
-
-  if (next === 'companion') {
-    return <Redirect to={'/companion'} />;
-  }
-
-  if (next === 'registration') {
-    return <Redirect to={'/registration'} />;
-  }
-
-  if (formState.status == 'saving') {
-    return <Spinner size={400} />;
-  }
-
   if (formState.status == 'success') {
-    return (
-      <FormContainer>
-        <Box pad={'medium'} gap={'large'} fill>
-          <Box
-            gap={'xxsmall'}
-            pad={'small'}
-            width={'large'}
-            round={'medium'}
-            elevation={'small'}
-            justify={'center'}
-            align={'center'}
-            background={{
-              color: 'light-1',
-              opacity: true,
-            }}
-            fill
-          >
-            <Heading>Congratulations</Heading>
-            <Heading level={'3'}>
-              Your data has been submitted! Welcome to Belize!
-            </Heading>
-          </Box>
-        </Box>
-      </FormContainer>
-    );
+    return <Redirect to={'/success'} />;
   }
 
   if (formState.status == 'failure') {
@@ -272,6 +234,22 @@ const Summary = (): JSX.Element => {
     );
   }
 
+  if (formState.status === 'entry' && !personalInfo?.id) {
+    return <Redirect to={'/registration'} />;
+  }
+
+  if (next === 'companion') {
+    return <Redirect to={'/companion'} />;
+  }
+
+  if (next === 'registration') {
+    return <Redirect to={'/registration'} />;
+  }
+
+  if (formState.status == 'saving') {
+    return <Spinner size={400} />;
+  }
+
   return (
     <FormContainer>
       <Box pad={'medium'} gap={'large'} fill>
@@ -289,7 +267,7 @@ const Summary = (): JSX.Element => {
           }}
           fill
         >
-          <Heading>Congratulations</Heading>
+          <Heading>{personalInfo?.fullName}</Heading>
           <Heading level={'3'}>Thank you for filling the application!</Heading>
           <Box
             width={'medium'}

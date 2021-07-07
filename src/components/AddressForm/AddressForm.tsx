@@ -86,10 +86,6 @@ const AddressForm = (): JSX.Element => {
             onChange={({ option }) => {
               const comm = option;
               if (comm) {
-                const idx = communities.communities.findIndex(
-                  (c) => c.name == comm.name
-                );
-                console.dir({ idx, comm });
                 setAddress?.({
                   ...address,
                   communityId: comm.id,
@@ -106,7 +102,12 @@ const AddressForm = (): JSX.Element => {
         label={'Gold Standard Hotel'}
         placeholder={'Gold Standard Hotel'}
       />
-      <FormField name={'street'} label={'Street'} placeholder={'Street'} />
+      <FormField
+        name={'street'}
+        label={'Street'}
+        placeholder={'Street'}
+        value={address?.street ?? ''}
+      />
     </>
   );
 };

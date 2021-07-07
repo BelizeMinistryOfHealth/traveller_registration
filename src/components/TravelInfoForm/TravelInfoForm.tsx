@@ -75,6 +75,7 @@ const TravelInfoForm = (): JSX.Element => {
         placeholder={'Vessel #'}
         name={'vesselNumber'}
         label={'Vessel Number'}
+        value={arrivalInfo?.vesselNumber ?? ''}
         onChange={(e) =>
           setArrivalInfo?.({
             ...arrivalInfo,
@@ -108,6 +109,7 @@ const TravelInfoForm = (): JSX.Element => {
         placeholder={'City/Port/Airport your trip originated from'}
         name={'travelOrigin'}
         label={'Travel Origin'}
+        value={arrivalInfo?.travelOrigin ?? ''}
         onChange={(e) =>
           setArrivalInfo?.({
             ...arrivalInfo,
@@ -120,10 +122,11 @@ const TravelInfoForm = (): JSX.Element => {
         placeholder={'Contact Person'}
         name={'contactPerson'}
         label={'Contact Person'}
+        value={arrivalInfo?.contactPerson ?? ''}
         onChange={(e) =>
           setArrivalInfo?.({
             ...arrivalInfo,
-            contactPerson: e.target.value.trim(),
+            contactPerson: e.target.value,
           })
         }
         required
@@ -132,10 +135,11 @@ const TravelInfoForm = (): JSX.Element => {
         placeholder={'Contact Person Phone #'}
         name={'contactPersonPhoneNumber'}
         label={'Contact Person Phone #'}
+        value={arrivalInfo?.contactPersonPhoneNumber ?? ''}
         onChange={(e) =>
           setArrivalInfo?.({
             ...arrivalInfo,
-            contactPersonPhoneNumber: e.target.value.trim(),
+            contactPersonPhoneNumber: e.target.value,
           })
         }
         required
@@ -163,6 +167,7 @@ const TravelInfoForm = (): JSX.Element => {
         placeholder={'Purpose Of Trip'}
         name={'purposeOfTrip'}
         label={'Purpose of Trip'}
+        value={arrivalInfo?.purposeOfTrip ?? ''}
         onChange={(e) =>
           setArrivalInfo?.({
             ...arrivalInfo,

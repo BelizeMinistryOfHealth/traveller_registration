@@ -33,6 +33,7 @@ const PersonalInfoForm = (): JSX.Element => {
         <TextInput
           id={'firstName'}
           name={'firstName'}
+          value={personalInfo?.firstName ?? ''}
           onChange={(e) =>
             setPersonalInfo?.({
               ...personalInfo,
@@ -51,6 +52,7 @@ const PersonalInfoForm = (): JSX.Element => {
         <TextInput
           id={'middleName'}
           name={'middleName'}
+          value={personalInfo?.middleName ?? ''}
           onChange={(e) =>
             setPersonalInfo?.({
               ...personalInfo,
@@ -70,6 +72,7 @@ const PersonalInfoForm = (): JSX.Element => {
         <TextInput
           id={'lastName'}
           name={'lastName'}
+          value={personalInfo?.lastName ?? ''}
           onChange={(e) =>
             setPersonalInfo?.({
               ...personalInfo,
@@ -145,6 +148,7 @@ const PersonalInfoForm = (): JSX.Element => {
         <TextInput
           id={'passportNumber'}
           name={'passportNumber'}
+          value={personalInfo?.passportNumber ?? ''}
           onChange={(e) =>
             setPersonalInfo?.({
               ...personalInfo,
@@ -164,6 +168,7 @@ const PersonalInfoForm = (): JSX.Element => {
         <TextInput
           name={'phoneNumbers'}
           id={'phoneNumbers'}
+          value={personalInfo?.phoneNumbers ?? ''}
           onChange={(e) =>
             setPersonalInfo?.({
               ...personalInfo,
@@ -183,6 +188,7 @@ const PersonalInfoForm = (): JSX.Element => {
         <TextInput
           name={'occupation'}
           id={'occupation'}
+          value={personalInfo?.occupation ?? ''}
           onChange={(e) =>
             setPersonalInfo?.({
               ...personalInfo,
@@ -204,6 +210,7 @@ const PersonalInfoForm = (): JSX.Element => {
         <MaskedInput
           id={'email'}
           name='email'
+          value={personalInfo?.email ?? ''}
           mask={[
             { regexp: /^[\w\-_.]+$/, placeholder: 'your' },
             { fixed: '@' },

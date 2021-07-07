@@ -4,7 +4,7 @@ import { formTheme } from '../../themes';
 import { generateId, PersonalInfo, FormState } from '../../models/models';
 import { format, parseISO } from 'date-fns';
 import { useRegistration } from '../../providers/RegistrationProvider';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner';
 import CompanionInfoForm from '../../components/CompanionInfoForm';
 
@@ -14,6 +14,7 @@ const Companion = (): JSX.Element => {
   const [formState, setFormState] = React.useState<FormState>({
     status: 'entry',
   });
+  const history = useHistory();
 
   const submit = () => {
     if (personalInfo.dob) {
@@ -192,12 +193,21 @@ const Companion = (): JSX.Element => {
                   <Box
                     align={'center'}
                     pad={'large'}
+                    gap={'medium'}
                     round={'medium'}
+                    direction={'row'}
+                    justify={'center'}
                     background={{
                       color: 'light-1',
                       opacity: true,
                     }}
                   >
+                    <Button
+                      size={'large'}
+                      label={'Cancel'}
+                      alignSelf={'center'}
+                      onClick={() => history.push('/summary')}
+                    />
                     <Button
                       size={'large'}
                       type={'submit'}
