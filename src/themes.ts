@@ -8,5 +8,15 @@ export const formTheme = deepMerge(grommet, {
       side: 'all',
     },
   },
-  global: { ...customBreakpoints.global, colors: { brand: '#4c8743' } },
+  global: {
+    ...customBreakpoints.global,
+    colors: {
+      brand: '#4c8743',
+    },
+    focus: {
+      border: {
+        color: '#7dc671',
+      },
+    },
+  },
 });
