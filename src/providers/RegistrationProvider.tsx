@@ -17,8 +17,14 @@ export interface RegistrationData {
 
 export const RegistrationContext = React.createContext<RegistrationData>({});
 
-export const useRegistration = (): RegistrationData =>
-  React.useContext(RegistrationContext);
+export const useRegistration = (): RegistrationData => {
+  const context = React.useContext(RegistrationContext);
+  if (!context)
+    throw new Error(
+      'useRegistration must be used within a RegistrationProvider'
+    );
+  return context;
+};
 
 export type RegistrationProviderProps = {
   children: React.ReactNode;
