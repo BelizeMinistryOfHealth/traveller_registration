@@ -9,19 +9,19 @@ function App(): JSX.Element {
   return (
     <Grommet theme={grommet} background={{ color: 'light-6' }}>
       <AppHeader />
-      <RegistrationProvider>
-        <Main
-          direction={'column'}
-          flex={false}
-          responsive={true}
-          // margin={'xxsmall'}
-          fill={'vertical'}
-          align={'center'}
-          background={{ opacity: 'weak', color: 'light-6' }}
-        >
+      <Main
+        direction={'column'}
+        flex={false}
+        responsive={true}
+        // margin={'xxsmall'}
+        fill={'vertical'}
+        align={'center'}
+        background={{ opacity: 'weak', color: 'light-6' }}
+      >
+        <RegistrationProvider>
           <Routes />
-        </Main>
-      </RegistrationProvider>
+        </RegistrationProvider>
+      </Main>
     </Grommet>
   );
 }

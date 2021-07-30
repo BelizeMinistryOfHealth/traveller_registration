@@ -13,6 +13,10 @@ const TravelInfoPage = (): JSX.Element => {
     status: 'entry',
   });
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const submit = () => {
     setArrivalInfo?.({
       ...arrivalInfo,

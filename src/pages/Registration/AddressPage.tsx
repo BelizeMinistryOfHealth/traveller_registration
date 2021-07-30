@@ -16,6 +16,10 @@ const AddressPage = (): JSX.Element => {
   });
   const history = useHistory();
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const submit = () => {
     setAddress?.({ ...address });
     setFormState({ status: 'success' });
