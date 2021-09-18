@@ -21,6 +21,7 @@ import differenceInYears from 'date-fns/differenceInYears';
 import parseISO from 'date-fns/parseISO';
 import axios from 'axios';
 import Spinner from '../../components/Spinner/Spinner';
+import { RouteComponentProps } from '@reach/router';
 
 const CompanionInfo = (props: {
   companion: PersonalInfo;
@@ -137,7 +138,7 @@ const CompanionsComponent = (props: {
   );
 };
 
-const Summary = (): JSX.Element => {
+const Summary = (props: RouteComponentProps): JSX.Element => {
   const {
     companions,
     personalInfo,

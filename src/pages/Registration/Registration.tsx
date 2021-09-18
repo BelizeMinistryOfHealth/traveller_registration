@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import PersonalInfoForm from '../../components/PersonalInfoForm/PersonalInfoForm';
 import { Box, Form, Button, Grommet, ResponsiveContext } from 'grommet';
 import { generateId, PersonalInfo } from '../../models/models';
 import { format, parseISO } from 'date-fns';
 import { useRegistration } from '../../providers/RegistrationProvider';
-import { Redirect } from 'react-router-dom';
 import { formTheme } from '../../themes';
+import { RouteComponentProps, Redirect } from '@reach/router';
 
 interface FormState {
   status: 'saving' | 'success' | 'failure' | 'entry';
 }
 
-const Registration = (): JSX.Element => {
+export interface RegistrationFormProps extends RouteComponentProps {
+  children?: ReactNode;
+}
+
+export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
+  const { children } = props;
+  return <>{children}</>;
+};
+
+const Registration = (props: RouteComponentProps): JSX.Element => {
   const { personalInfo, setPersonalInfo } = useRegistration();
   const [formState, setFormState] = React.useState<FormState>({
     status: 'entry',
@@ -30,7 +39,7 @@ const Registration = (): JSX.Element => {
   };
 
   if (formState.status === 'success') {
-    return <Redirect to={'/travelInfo'} />;
+    return <Redirect to={'/registration/travelInfo'} />;
   }
 
   return (

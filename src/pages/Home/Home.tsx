@@ -2,8 +2,9 @@ import React from 'react';
 import { Box, Grommet, ResponsiveContext, Text } from 'grommet';
 import { useHistory } from 'react-router-dom';
 import { formTheme } from '../../themes';
+import { RouteComponentProps, navigate } from '@reach/router';
 
-const Home = (): JSX.Element => {
+const Home = (props: RouteComponentProps): JSX.Element => {
   const history = useHistory();
   return (
     <Grommet theme={formTheme} full>
@@ -28,7 +29,7 @@ const Home = (): JSX.Element => {
                   justify={'center'}
                   background={{ color: '#7161ce' }}
                   responsive={true}
-                  onClick={() => history.push('/registration')}
+                  onClick={() => navigate('/registration/personalInfo')}
                 >
                   <Text size={'xxlarge'}>Register</Text>
                 </Box>
@@ -43,7 +44,7 @@ const Home = (): JSX.Element => {
                   justify={'center'}
                   background={{ color: '#7161ce' }}
                   responsive={true}
-                  onClick={() => history.push('/registration')}
+                  onClick={() => navigate('/registration/personalInfo')}
                 >
                   <Text size={'xxlarge'}>Register</Text>
                 </Box>
@@ -57,7 +58,7 @@ const Home = (): JSX.Element => {
                   justify={'center'}
                   background={{ color: '#7161ce' }}
                   responsive={true}
-                  onClick={() => history.push('/registration')}
+                  onClick={() => navigate('/registration/personalInfo')}
                 >
                   <Text size={'xxlarge'}>Register</Text>
                 </Box>
@@ -72,7 +73,7 @@ const Home = (): JSX.Element => {
                   justify={'center'}
                   background={{ color: '#7161ce' }}
                   responsive={true}
-                  onClick={() => history.push('/registration')}
+                  onClick={() => navigate('/registration/personalInfo')}
                 >
                   <Text size={'xxlarge'}>Register</Text>
                 </Box>

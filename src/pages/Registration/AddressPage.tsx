@@ -4,12 +4,13 @@ import { useRegistration } from '../../providers/RegistrationProvider';
 import { Redirect, useHistory } from 'react-router-dom';
 import AddressForm from '../../components/AddressForm/AddressForm';
 import { formTheme } from '../../themes';
+import { RouteComponentProps } from '@reach/router';
 
 interface FormState {
   status: 'saving' | 'success' | 'failure' | 'entry';
 }
 
-const AddressPage = (): JSX.Element => {
+const AddressPage = (_: RouteComponentProps): JSX.Element => {
   const { personalInfo, address, setAddress } = useRegistration();
   const [formState, setFormState] = React.useState<FormState>({
     status: 'entry',

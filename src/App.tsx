@@ -1,9 +1,8 @@
 import './App.css';
 import { grommet, Grommet, Main } from 'grommet';
-import Routes from './Routes';
 import AppHeader from './components/AppHeader/AppHeader';
-import { RegistrationProvider } from './providers/RegistrationProvider';
 import React from 'react';
+import AppRouter from './router';
 
 function App(): JSX.Element {
   return (
@@ -18,9 +17,7 @@ function App(): JSX.Element {
         align={'center'}
         background={{ opacity: 'weak', color: 'light-6' }}
       >
-        <RegistrationProvider>
-          <Routes />
-        </RegistrationProvider>
+        <AppRouter />
       </Main>
     </Grommet>
   );

@@ -3,8 +3,9 @@ import { Box, Heading, Text } from 'grommet';
 
 import FormContainer from '../../components/FormContainer/FormContainer';
 import { useHistory } from 'react-router-dom';
+import { RouteComponentProps } from '@reach/router';
 
-const SuccessPage = (): JSX.Element => {
+const SuccessPage = (props: RouteComponentProps): JSX.Element => {
   const history = useHistory();
   return (
     <FormContainer>

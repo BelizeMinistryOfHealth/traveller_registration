@@ -3,12 +3,11 @@ import { Box, Grommet, Form, Button, ResponsiveContext } from 'grommet';
 import { formTheme } from '../../themes';
 import { useRegistration } from '../../providers/RegistrationProvider';
 import TravelInfoForm from '../../components/TravelInfoForm/TravelInfoForm';
-import { Redirect, useHistory } from 'react-router-dom';
 import { FormState } from '../../models/models';
+import { RouteComponentProps, Redirect, navigate } from '@reach/router';
 
-const TravelInfoPage = (): JSX.Element => {
+const TravelInfoPage = (props: RouteComponentProps): JSX.Element => {
   const { personalInfo, arrivalInfo, setArrivalInfo } = useRegistration();
-  const history = useHistory();
   const [formState, setFormState] = React.useState<FormState>({
     status: 'entry',
   });
@@ -26,7 +25,7 @@ const TravelInfoPage = (): JSX.Element => {
   };
 
   if (formState.status === 'success') {
-    return <Redirect to={'/address'} />;
+    return <Redirect to={'/registration/address'} />;
   }
 
   return (
@@ -77,7 +76,7 @@ const TravelInfoPage = (): JSX.Element => {
                       size={'large'}
                       label={'Previous'}
                       alignSelf={'center'}
-                      onClick={() => history.push('/registration')}
+                      onClick={() => navigate('/registration/personalInfo')}
                     />
                     <Button
                       size={'large'}
@@ -119,7 +118,7 @@ const TravelInfoPage = (): JSX.Element => {
                       size={'large'}
                       label={'Previous'}
                       alignSelf={'center'}
-                      onClick={() => history.push('/registration')}
+                      onClick={() => navigate('/registration/personalInfo')}
                     />
                     <Button
                       size={'large'}
@@ -161,7 +160,7 @@ const TravelInfoPage = (): JSX.Element => {
                       size={'large'}
                       label={'Previous'}
                       alignSelf={'center'}
-                      onClick={() => history.push('/registration')}
+                      onClick={() => navigate('/registration/personalInfo')}
                     />
                     <Button
                       size={'large'}
@@ -203,7 +202,7 @@ const TravelInfoPage = (): JSX.Element => {
                       size={'large'}
                       label={'Previous'}
                       alignSelf={'center'}
-                      onClick={() => history.push('/registration')}
+                      onClick={() => navigate('/registration/personalInfo')}
                     />
                     <Button
                       size={'large'}

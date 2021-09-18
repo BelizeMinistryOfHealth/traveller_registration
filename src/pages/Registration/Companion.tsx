@@ -7,8 +7,9 @@ import { useRegistration } from '../../providers/RegistrationProvider';
 import { Redirect, useHistory } from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner';
 import CompanionInfoForm from '../../components/CompanionInfoForm';
+import { RouteComponentProps } from '@reach/router';
 
-const Companion = (): JSX.Element => {
+const Companion = (props: RouteComponentProps): JSX.Element => {
   const { companions, setCompanions } = useRegistration();
   const [personalInfo, setPersonalInfo] = React.useState<PersonalInfo>({});
   const [formState, setFormState] = React.useState<FormState>({
