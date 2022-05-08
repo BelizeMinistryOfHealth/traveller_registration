@@ -1,13 +1,12 @@
 pipeline {
-    agent {
-        docker { image 'node' }
-    }
+    agent any
 
     stages {
         stage("build") {
             steps {
-                echo 'building....'
-                sh 'npm install --global yarn'
+                 nodejs(nodeJSInstallationName: 'Nodejs 18.10') {
+                    sh 'npm config ls'
+                 }
             }
         }
     }
