@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        FIREBASE_TOKEN = credentials("firebase")
+        FIREBASE_TOKEN = credentials("Firebase")
     }
 
     stages {
@@ -18,6 +18,7 @@ pipeline {
         stage("deploy") {
             steps {
                 nodejs(nodeJSInstallationName: "Nodejs_16") {
+                    sh 'yarn install firebase -g'
                     sh 'firebase deploy --token $FIREBASE_TOKEN'
                 }
             }
