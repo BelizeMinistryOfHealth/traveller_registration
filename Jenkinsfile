@@ -18,7 +18,7 @@ pipeline {
         stage("deploy") {
             steps {
                 nodejs(nodeJSInstallationName: "Nodejs_16") {
-                    sh 'yarn install firebase -g'
+                    sh 'yarn global add firebase'
                     sh 'firebase deploy --token $FIREBASE_TOKEN'
                 }
             }
