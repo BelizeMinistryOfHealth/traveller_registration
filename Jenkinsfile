@@ -5,7 +5,7 @@ pipeline {
         stage("build") {
             steps {
                  nodejs(nodeJSInstallationName: 'Nodejs_18') {
-                    sh 'npm config ls'
+                    sh 'npm install --global yarn'
                  }
             }
         }
