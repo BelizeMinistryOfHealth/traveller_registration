@@ -1,12 +1,26 @@
 pipeline {
-    agent {
-        docker { image 'node' }
+    agent any
+
+    environment {
+        FIREBASE_TOKEN = credentials("Firebase")
     }
 
     stages {
         stage("build") {
             steps {
-                sh 'npm install --global yarn'
+                 nodejs(nodeJSInstallationName: 'Nodejs_16') {
+                    sh 'npm install --global yarn'
+                    sh 'yarn install'
+                    sh 'yarn build'
+                 }
+            }
+        }
+        stage("deploy") {
+            steps {
+                nodejs(nodeJSInstallationName: "Nodejs_16") {
+                    sh 'npm i -g firebase-tools@9.14.0'
+                    sh 'firebase deploy --token $FIREBASE_TOKEN'
+                }
             }
         }
     }
